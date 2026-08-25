@@ -3,163 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcadeVerse | Plataforma Gamer Ultra Interativa</title>
-    <!-- Carregamento seguro de fontes do Google -->
+    <title>ArcadeVerse | Jogos que Ensinam, Diversão que Transforma!</title>
+    <!-- Fontes do Google para reproduzir a tipografia Gamer e Tech -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Link de conexão com o arquivo CSS -->
+    <link href="https://googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-mode">
 
-    <!-- Link de Acessibilidade Oculto (Acessível via tecla TAB para leitores de tela) -->
-    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- BARRA DE NAVEGAÇÃO INTERATIVA -->
+    <!-- BARRA DE NAVEGAÇÃO -->
     <header class="app-header">
         <div class="header-container">
-            <div class="app-logo" aria-label="ArcadeVerse Logo">
-                🎮 ARCADE<span>VERSE</span>
+            <div class="app-logo">
+                <span class="logo-icon">🎮</span>
+                <div class="logo-text">
+                    <h1>ARCADEVERSE</h1>
+                    <p>JOGOS QUE ENSINAM, DIVERSÃO QUE TRANSFORMA!</p>
+                </div>
             </div>
             
-            <button class="menu-toggle" id="menu-mobile-btn" aria-label="Abrir menu de navegação" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav class="nav-menu" id="nav-links">
+            <nav class="nav-menu">
                 <ul>
-                    <li><a href="#home" class="nav-item-link">Início</a></li>
-                    <li><a href="#jogos" class="nav-item-link">Jogos & Cards</a></li>
-                    <li><a href="#sobre" class="nav-item-link">Documentação</a></li>
-                    <li><a href="#contato" class="nav-item-link">Contato</a></li>
+                    <li><a href="#home" class="active">INÍCIO</a></li>
+                    <li><a href="#jogos">JOGOS</a></li>
+                    <li><a href="#ciencia">CIÊNCIA</a></li>
+                    <li><a href="#desenvolvimento">DESENVOLVIMENTO</a></li>
+                    <li><a href="#avaliacao">AVALIAÇÃO</a></li>
+                    <li><a href="#sobre">SOBRE</a></li>
                 </ul>
-                <button id="theme-toggle" class="theme-btn" aria-label="Alternar modo claro e escuro">⚡ ALTERAR TEMA</button>
+                <div class="theme-toggle-zone">
+                    <span class="moon-icon">🌙</span>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- SEÇÃO HERO (INTRODUÇÃO) -->
-    <section id="home" class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="hero-tag">THE FUTURE OF RETRO</span>
-            <h1>A Evolução Interativa dos Jogos em uma Única Plataforma</h1>
-            <p>Explore a fusão perfeita entre a estética nostálgica dos anos 80 e a engenharia de performance moderna da Web.</p>
-            <a href="#jogos" class="cta-button">EXPLORAR ARENA</a>
+    <!-- CONTEÚDO PRINCIPAL (GRID SUPERIOR) -->
+    <main class="main-container" id="conteudo-principal">
+        <div class="hero-grid">
+            
+            <!-- COLUNA DA ESQUERDA: APRESENTAÇÃO -->
+            <section class="hero-intro" id="home">
+                <h2 class="main-title">APRENDER<br>NUNCA FOI<br>TÃO DIVERTIDO</h2>
+                <p class="main-description">
+                    ArcadeVerse é uma plataforma educacional onde a ciência e a tecnologia se encontram com jogos incríveis e interativos.
+                </p>
+                <button class="cta-explore-btn">
+                    EXPLORAR JOGOS <span class="arrow">&#10095;</span>
+                </button>
+            </section>
+
+            <!-- COLUNA DA DIREITA: OS 3 CARDS EM NEON -->
+            <section class="games-arena" id="jogos">
+                
+                <!-- CARD 1: NEON SNAKE -->
+                <article class="game-card card-emerald" data-game="snake">
+                    <div class="card-header-game">
+                        <span class="card-icon-snake">🐍</span>
+                        <div>
+                            <h3>NEON SNAKE</h3>
+                            <p class="card-subtitle">Clássico da Cobrinha com um visual neon!</p>
+                        </div>
+                    </div>
+                    <!-- Mini Canvas Visualizador Incorporado Internamente -->
+                    <div class="card-preview-screen">
+                        <div class="snake-pixel-art"></div>
+                    </div>
+                    <button class="play-card-btn">
+                        JOGAR AGORA <span class="btn-icon">🎮</span>
+                    </button>
+                </article>
+
+                <!-- CARD 2: QUANTUM CLICKER -->
+                <article class="game-card card-blue" data-game="clicker">
+                    <div class="card-header-game">
+                        <span class="card-icon-clicker">⚡</span>
+                        <div>
+                            <h3>QUANTUM CLICKER</h3>
+                            <p class="card-subtitle">Clique, evolua e descubra o poder dos quarks!</p>
+                        </div>
+                    </div>
+                    <div class="card-preview-screen clicker-bg">
+                        <div class="clicker-core-particle"></div>
+                    </div>
+                    <button class="play-card-btn">
+                        JOGAR AGORA <span class="btn-icon">🎮</span>
+                    </button>
+                </article>
+
+                <!-- CARD 3: TECH QUIZ ARENA -->
+                <article class="game-card card-purple" data-game="quiz">
+                    <div class="card-header-game">
+                        <span class="card-icon-quiz">🏆</span>
+                        <div>
+                            <h3>TECH QUIZ ARENA</h3>
+                            <p class="card-subtitle">Teste seus conhecimentos em tecnologia e ciência!</p>
+                        </div>
+                    </div>
+                    <div class="card-preview-screen quiz-bg">
+                        <div class="quiz-trophy-glow">🏆</div>
+                    </div>
+                    <button class="play-card-btn special-quiz-btn">
+                        COMEÇAR QUIZ <span class="btn-icon">❓</span>
+                    </button>
+                </article>
+
+            </section>
         </div>
-    </section>
 
-    <!-- CONTEÚDO PRINCIPAL ACESSÍVEL -->
-    <main id="conteudo-principal">
-
-        <!-- SEÇÃO DE JOGOS & CARDS INTERATIVOS (DESENVOLVIMENTO) -->
-        <section id="jogos" class="games-section">
-            <div class="section-header">
-                <h2>A Arena de Mini-Games</h2>
-                <p>Passe o mouse sobre os cards para ativar as microinterações e clique para abrir os módulos nativos.</p>
-            </div>
-
-            <div class="games-grid">
-                <!-- CARD JOGO 1: SNAKE -->
-                <article class="game-card card-emerald" data-game="snake" tabindex="0" aria-label="Jogo da cobrinha clássico. Pressione Enter ou clique para jogar.">
-                    <div class="card-image-wrapper">
-                        <span class="card-badge">RETRO</span>
-                        <img src="https://unsplash.com" alt="Luzes verdes em neon no formato de cobra pixelada" class="card-img">
+        <!-- SEÇÃO INFERIOR: INFOGRÁFICOS DE 4 COLUNAS -->
+        <div class="info-footer-grid">
+            
+            <!-- COLUNA 1: SOBRE COM ILUSTRAÇÃO -->
+            <div class="info-column about-box" id="sobre">
+                <h4 class="column-title"><span class="purple-dot">👾</span> SOBRE O ARCADEVERSE</h4>
+                <p class="column-text">
+                    Uma plataforma gamificada que transforma conteúdos complexos de ciência e tecnologia em experiências interativas e divertidas.
+                </p>
+                <div class="avatar-display-wrapper">
+                    <!-- Representação puramente em CSS do personagem gamer com fone de ouvido da imagem -->
+                    <div class="avatar-head">
+                        <div class="avatar-hair"></div>
+                        <div class="avatar-headset"></div>
+                        <div class="avatar-face"></div>
                     </div>
-                    <div class="card-body">
-                        <span class="game-tag">Arcade Clássico</span>
-                        <h3>Neon Snake</h3>
-                        <p>Controle a velocidade da luz. Desvie dos obstáculos de borda infinita e capture os núcleos de dados energizados.</p>
-                        <button class="action-card-btn" tabindex="-1">INICIAR MATRIX</button>
-                    </div>
-                </article>
-
-                <!-- CARD JOGO 2: CYBER CLICKER -->
-                <article class="game-card card-purple" data-game="clicker" tabindex="0" aria-label="Jogo Cyber Clicker de reflexos. Pressione Enter ou clique para jogar.">
-                    <div class="card-image-wrapper">
-                        <span class="card-badge">REFLEXO</span>
-                        <img src="https://unsplash.com" alt="Controle de videogame retro cinza em cima de uma mesa escura" class="card-img">
-                    </div>
-                    <div class="card-body">
-                        <span class="game-tag">Ação Rápida</span>
-                        <h3>Quantum Clicker</h3>
-                        <p>Teste seus reflexos milissegundo por milissegundo. Acerte os alvos dinâmicos antes que o tempo colapse.</p>
-                        <button class="action-card-btn" tabindex="-1">INICIAR MATRIX</button>
-                    </div>
-                </article>
-
-                <!-- CARD JOGO 3: QUIZ ACADÊMICO -->
-                <article class="game-card card-amber" data-game="quiz" tabindex="0" aria-label="Quiz Gamer sobre a história do desenvolvimento. Pressione Enter ou clique para jogar.">
-                    <div class="card-image-wrapper">
-                        <span class="card-badge">HISTÓRIA</span>
-                        <img src="https://unsplash.com" alt="Fliperama clássico iluminado em um ambiente escuro" class="card-img">
-                    </div>
-                    <div class="card-body">
-                        <span class="game-tag">Teoria & História</span>
-                        <h3>Tech Quiz Arena</h3>
-                        <p>Aprenda jogando! Responda o questionário sobre a evolução dos jogos e descubra dados fundamentais sobre a indústria.</p>
-                        <button class="action-card-btn" tabindex="-1">INICIAR MATRIX</button>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- SEÇÃO DE CONTEÚDO TEÓRICO (DOCUMENTAÇÃO E REFERÊNCIAS PARA A BANCA) -->
-        <section id="sobre" class="content-section">
-            <div class="info-block">
-                <h3>Contextualização Científica dos Jogos Web</h3>
-                <p><strong>Introdução:</strong> Jogos baseados em navegadores deixaram de ser meros passatempos para se tornarem vitrines de engenharia de software e performance. A otimização gráfica nativa do elemento HTML5 Canvas permite excelente taxa de quadros por segundo sem dependências externas.</p>
-                <p><strong>Desenvolvimento:</strong> Ferramentas modernas utilizam motores de JavaScript otimizados para manipulação assíncrona. No design, as microinterações baseadas no seletor CSS <code>:hover</code> guiam a jornada cognitiva do usuário, reduzindo a taxa de rejeição e aumentando a acessibilidade motora.</p>
-                <p><strong>Conclusão:</strong> Conclui-se que o desenvolvimento web focado em jogos deve equilibrar rigorosamente acessibilidade estrutural e apelo visual dinâmico, provando que interfaces ricas podem e devem ser inclusivas.</p>
-                <div class="references">
-                    <h4>Referências Técnicas:</h4>
-                    <ul>
-                        <li>W3C Web Content Accessibility Guidelines (WCAG 2.2)</li>
-                        <li>Mozilla Developer Network (MDN) - Canvas API Optimization</li>
-                        <li>Estudos de Interação Humano-Computador (IHC) Nielsen Norman Group</li>
-                    </ul>
+                    <div class="setup-monitor-lines"></div>
                 </div>
             </div>
-        </section>
 
-        <!-- SEÇÃO DE CONTATO / FORMULÁRIO COM VALIDAÇÃO ACESSÍVEL -->
-        <section id="contato" class="contact-section">
-            <div class="contact-container">
-                <h2>Feedback da Banca Avaliadora</h2>
-                <p>Envie suas notas, críticas ou sugestões de engenharia diretamente para a nossa equipe de desenvolvimento.</p>
-                
-                <form id="contact-form" class="accessible-form" novalidate>
-                    <div class="form-group">
-                        <label id="label-name" for="form-name">Nome do Avaliador:</label>
-                        <input type="text" id="form-name" required>
-                        <span class="error-msg" id="error-name" aria-live="polite"></span>
-                    </div>
-                    <div class="form-group">
-                        <label id="label-email" for="form-email">E-mail Institucional:</label>
-                        <input type="email" id="form-email" required>
-                        <span class="error-msg" id="error-email" aria-live="polite"></span>
-                    </div>
-                    <div class="form-group">
-                        <label id="label-message" for="form-message">Parecer Técnico / Mensagem:</label>
-                        <textarea id="form-message" rows="4" required></textarea>
-                        <span class="error-msg" id="error-message" aria-live="polite"></span>
-                    </div>
-                    <button type="submit" class="submit-btn">ENVIAR RELATÓRIO</button>
-                </form>
-                <div id="form-feedback" class="form-success-alert" aria-live="assertive" role="alert"></div>
+            <!-- COLUNA 2: RECURSOS -->
+            <div class="info-column features-box" id="ciencia">
+                <h4 class="column-title">RECURSOS INCRÍVEIS</h4>
+                <ul class="meta-list">
+                    <li>
+                        <span class="meta-icon icon-bg-green">🎮</span>
+                        <div>
+                            <h5>Jogos Educacionais</h5>
+                            <p>Aprenda enquanto joga</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="meta-icon icon-bg-blue">🔬</span>
+                        <div>
+                            <h5>Conteúdo Científico</h5>
+                            <p>Baseado em pesquisas reais</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="meta-icon icon-bg-cyan">💻</span>
+                        <div>
+                            <h5>Tecnologia Moderna</h5>
+                            <p>Desenvolvido com as melhores tecnologias</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="meta-icon icon-bg-darkblue">📱</span>
+                        <div>
+                            <h5>Design Responsivo</h5>
+                            <p>Funciona perfeitamente em qualquer dispositivo</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </section>
-    </main>
 
-    <!-- FOOTER E BOTÃO DE VOLTAR AO TOPO -->
-    <footer class="app-footer">
-        <p>&copy; 2026 ArcadeVerse Framework. Desenvolvido para Aprovação com Nota Máxima.</p>
-        <a href="#home" class="back-to-top" id="back-top-btn" aria-label="Voltar para o topo da página">⬆</a>
-    </footer>
+            <!-- COLUNA 3: TECNOLOGIAS -->
+            <div class="info-column tech-box" id="desenvolvimento">
+                <h4 class="column-title">TECNOLOGIAS UTILIZADAS</h4>
+                <ul class="meta-list">
+                    <li>
+                        <span class="tech-badge badge-orange">5</span>
+                        <div>
+                            <h5>HTML5</h5>
+                            <p>Estrutura semântica</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tech-badge badge-blue">3</span>
+                        <div>
+                            <h5>CSS3</h5>
+                            <p>Estilização moderna</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tech-badge badge-yellow">JS</span>
+                        <div>
+                            <h5>JavaScript ES6+</h5>
+                            <p>Interatividade avançada</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tech-badge badge-cyan">👁</span>
+                        <div>
+                            <h5>Canvas API</h5>
+                            <p>Gráficos e animações</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tech-badge badge-green">💾</span>
+                        <div>
+                            <h5>LocalStorage</h5>
+                            <p>Persistência de dados</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-    <!-- INTERFACE MODAL UNIFICADA DOS JOGOS (POPUP) -->
-    <div id="game-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
-        <div class="modal-content">
+            <!-- COLUNA 4: STATS -->
+            <div class="info-column stats-box" id="avaliacao">
+                <h4 class="column-title">STATS DA PLATAFORMA</h4>
+                <ul class="meta-list">
+                    <li>
+                        <span class="meta-icon no-bg">🎮</span>
+                        <div>
+                            <h5 class="stat-number color-green">3</h5>
+                            <p>Jogos Disponíveis</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="meta-icon no-bg">💬</span>
+                        <div>

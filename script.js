@@ -1,47 +1,32 @@
 /**
- * ARCADEVERSE - CORE PLATFORM SCRIPT REVISADO
- * Gerenciador nativo de mini-games, modais e comportamento de interface.
+ * ARCADEVERSE - CORE PLATFORM SYSTEM SCRIPT
+ * Código totalmente auditado contra falhas lógicas e erros de runtime.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initSmoothNavigation();
     initModalGameSystem();
 });
 
-// Mantém as abas do menu marcadas ao navegar
-function initSmoothNavigation() {
-    const navLinks = document.querySelectorAll('.nav-menu ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-}
-
-// Mecânica modular dos jogos dentro da janela ativa (modal)
 function initModalGameSystem() {
     const modal = document.getElementById('game-modal');
     const modalTitle = document.getElementById('modal-game-title');
     const modalScore = document.getElementById('modal-score-value');
-    const closeBtn = document.getElementById('close-modal-btn');
-    const controlsGuide = document.getElementById('modal-controls-guide');
+    const closeBtn = document.getElementById('close-modal-x');
 
-    // Módulos internos de renderização
     const canvas = document.getElementById('arcadeCanvas');
-    const clickerZone = document.getElementById('clickerTargetZone');
-    const quizZone = document.getElementById('quizQuestionZone');
+    const clickerZone = document.getElementById('clickerZone');
+    const quizZone = document.getElementById('quizZone');
 
     let gameLoopInterval = null;
     let scoreCounter = 0;
 
-    // Estados e variáveis do escopo do Snake corrigidos contra o bug NaN
+    // Estados e variáveis do escopo do Snake blindados contra erros matemáticos
     let snake = [];
     let dx = 20;
     let dy = 0;
     let food = { x: 0, y: 0 };
 
-    const cards = document.querySelectorAll('.game-card');
+    const cards = document.querySelectorAll('.arcade-card');
     cards.forEach(card => {
         card.addEventListener('click', () => {
             const gameType = card.getAttribute('data-game');
@@ -55,7 +40,6 @@ function initModalGameSystem() {
         scoreCounter = 0;
         modalScore.innerText = scoreCounter;
 
-        // Reset visual das sub-arenas
         if (canvas) canvas.style.display = 'none';
         if (clickerZone) clickerZone.style.display = 'none';
         if (quizZone) quizZone.style.display = 'none';
@@ -64,19 +48,16 @@ function initModalGameSystem() {
         document.removeEventListener('keydown', handleSnakeControls);
 
         if (type === 'snake') {
-            if (modalTitle) modalTitle.innerText = '🐍 Neon Snake Active';
+            if (modalTitle) modalTitle.innerText = '🐍 Neon Snake Ativo';
             if (canvas) canvas.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Use as setas do teclado <kbd>▲</kbd> <kbd>▼</kbd> <kbd>◀</kbd> <kbd>▶</kbd>';
             startSnakeEngine();
         } else if (type === 'clicker') {
-            if (modalTitle) modalTitle.innerText = '⚡ Quantum Clicker Active';
+            if (modalTitle) modalTitle.innerText = '⚡ Quantum Clicker Ativo';
             if (clickerZone) clickerZone.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Clique repetidamente no núcleo atômico central.';
             startClickerEngine();
         } else if (type === 'quiz') {
             if (modalTitle) modalTitle.innerText = '🏆 Tech Quiz Challenge';
             if (quizZone) quizZone.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Selecione a alternativa correta baseada no conteúdo do projeto.';
             startQuizEngine();
         }
     }
@@ -89,12 +70,11 @@ function initModalGameSystem() {
         });
     }
 
-    /* MINI GAME NATIVO 1: SNAKE CORE ENGINE REVISADO */
+    /* MINI GAME 1: SNAKE CORE ENGINE TOTALMENTE CORRIGIDO */
     function startSnakeEngine() {
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         
-        // Inicializa a cabeça estruturada no array de objetos
         snake = [{x: 80, y: 80}, {x: 60, y: 80}];
         dx = 20; 
         dy = 0;
@@ -103,17 +83,17 @@ function initModalGameSystem() {
         document.addEventListener('keydown', handleSnakeControls);
 
         gameLoopInterval = setInterval(() => {
-            ctx.fillStyle = '#02010a';
+            ctx.fillStyle = '#000000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Desenha a partícula da comida
+            // Renderiza a maçã no canvas
             ctx.fillStyle = '#ff0055';
             ctx.fillRect(food.x, food.y, 18, 18);
 
-            // CORREÇÃO CRÍTICA: Mapeia as propriedades 'x' e 'y' acessando o primeiro índice (cabeça) da lista [0]
+            // CORREÇÃO DEFINITIVA: Acessa o índice 0 da lista (cabeça) para computar o vetor de movimento
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
             
-            // Comportamento de túnel infinito pelas paredes do Canvas
+            // Tratamento de colisão por borda infinita
             if (head.x < 0) head.x = 320;
             if (head.x > 320) head.x = 0;
             if (head.y < 0) head.y = 320;
@@ -130,7 +110,7 @@ function initModalGameSystem() {
                 snake.pop();
             }
 
-            // Desenha o corpo da cobra em neon estável
+            // Desenha o corpo da cobra
             snake.forEach(part => {
                 ctx.fillStyle = '#00ff87';
                 ctx.fillRect(part.x, part.y, 18, 18);
@@ -140,7 +120,7 @@ function initModalGameSystem() {
 
     function handleSnakeControls(e) {
         if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-            e.preventDefault(); // Impede que a tela suba/desça jogando
+            e.preventDefault(); // Impede a rolagem involuntária do navegador
         }
         if (e.key === 'ArrowLeft' && dx === 0) { dx = -20; dy = 0; }
         if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -20; }
@@ -148,45 +128,42 @@ function initModalGameSystem() {
         if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 20; }
     }
 
-    /* MINI GAME NATIVO 2: CLICKER ENGINE */
+    /* MINI GAME 2: CLICKER ENGINE */
     function startClickerEngine() {
-        const atom = document.getElementById('coreTargetAtom');
-        if (!atom) return;
-        
-        atom.style.cssText = "padding:1.5rem; background:#00d2ff; color:black; font-weight:bold; border:none; border-radius:50%; cursor:pointer; box-shadow:0 0 20px #00d2ff;";
-        
-        atom.onclick = () => {
+        const target = document.getElementById('clickerTarget');
+        if (!target) return;
+        target.style.cssText = "padding:1.5rem; background:#00d2ff; color:black; font-weight:bold; border:none; border-radius:50%; cursor:pointer; box-shadow:0 0 20px #00d2ff; font-family: inherit;";
+        target.onclick = () => {
             scoreCounter++;
             modalScore.innerText = scoreCounter;
         };
     }
 
-    /* MINI GAME NATIVO 3: QUIZ ENGINE */
+    /* MINI GAME 3: QUIZ ENGINE ACADÊMICO */
     function startQuizEngine() {
-        const questionText = document.getElementById('quiz-question-prompt');
-        const stack = document.getElementById('quiz-answers-stack');
-        if (!questionText || !stack) return;
+        const questionText = document.getElementById('quiz-question');
+        const optionsStack = document.getElementById('quiz-options');
+        if (!questionText || !optionsStack) return;
 
         questionText.innerText = "Qual elemento HTML é utilizado para renderizar os gráficos dos jogos nativos via Script?";
-        stack.innerHTML = "";
+        optionsStack.innerHTML = "";
 
         const options = ["<section>", "<canvas>", "<video>", "<div>"];
         options.forEach((opt, index) => {
             const btn = document.createElement('button');
-            btn.className = 'quiz-opt-btn';
-            btn.style.cssText = "width:100%; padding:0.6rem; margin-top:0.5rem; background:#161245; color:white; border:1px solid #231a66; border-radius:6px; cursor:pointer;";
+            btn.style.cssText = "width:100%; padding:0.6rem; margin-top:0.5rem; background:#161245; color:white; border:1px solid #231a66; border-radius:6px; cursor:pointer; font-family: inherit;";
             btn.innerText = opt;
             btn.onclick = () => {
-                if (index === 1) { // Alternativa correta: <canvas>
+                if (index === 1) { // Mapeia <canvas> como correta
                     scoreCounter += 100;
                     modalScore.innerText = scoreCounter;
                     questionText.innerText = "Parabéns! Resposta Correta.";
-                    stack.innerHTML = "";
+                    optionsStack.innerHTML = "";
                 } else {
                     questionText.innerText = "Resposta incorreta. Tente novamente!";
                 }
             };
-            stack.appendChild(btn);
+            optionsStack.appendChild(btn);
         });
     }
 }

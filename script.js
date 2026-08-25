@@ -1,249 +1,192 @@
 /**
- * ARCADEVERSE - CORE FRAMEWORK ENGINE REVISADO
- * Código totalmente blindado contra exceções nulas ou estouro de memória no DOM.
+ * ARCADEVERSE - CORE PLATFORM SCRIPT REVISADO
+ * Gerenciador nativo de mini-games, modais e comportamento de interface.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initNavigationModule();
-    initThemeModule();
-    initGameEngineModule();
-    initValidationFormModule();
+    initSmoothNavigation();
+    initModalGameSystem();
 });
 
-// GESTÃO DO MENU MOBILE RESPONSIVO
-function initNavigationModule() {
-    const menuMobileBtn = document.getElementById('menu-mobile-btn');
-    const navLinks = document.getElementById('nav-links');
-    
-    if (menuMobileBtn && navLinks) {
-        menuMobileBtn.addEventListener('click', () => {
-            const isExpanded = menuMobileBtn.getAttribute('aria-expanded') === 'true';
-            menuMobileBtn.setAttribute('aria-expanded', !isExpanded);
-            navLinks.classList.toggle('active');
+// Mantém as abas do menu marcadas ao navegar
+function initSmoothNavigation() {
+    const navLinks = document.querySelectorAll('.nav-menu ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
         });
-
-        document.querySelectorAll('.nav-item-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuMobileBtn.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
+    });
 }
 
-// ALTERNADOR INTELIGENTE DE TEMAS COM CORES NEON ADAPTATIVAS
-function initThemeModule() {
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        if (localStorage.getItem('arcadeverse-theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('arcadeverse-theme', isDark ? 'dark' : 'light');
-        });
-    }
-}
-
-// CONTROLE E MÁQUINA DE ESTADO DOS JOGOS INTERATIVOS NATIVOS
-function initGameEngineModule() {
+// Mecânica modular dos jogos dentro da janela ativa (modal)
+function initModalGameSystem() {
     const modal = document.getElementById('game-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const displayScore = document.getElementById('display-score');
-    const timerWrapper = document.getElementById('display-timer-wrapper');
-    const displayTimer = document.getElementById('display-timer');
+    const modalTitle = document.getElementById('modal-game-title');
+    const modalScore = document.getElementById('modal-score-value');
+    const closeBtn = document.getElementById('close-modal-btn');
     const controlsGuide = document.getElementById('modal-controls-guide');
-    
-    const snakeCanvas = document.getElementById('snakeCanvas');
-    const clickerArena = document.getElementById('clickerArena');
-    const quizArena = document.getElementById('quizArena');
 
-    let engineInterval = null;
-    let countdownInterval = null;
-    let currentGameState = { score: 0, timer: 10, isRunning: false };
+    // Módulos internos de renderização
+    const canvas = document.getElementById('arcadeCanvas');
+    const clickerZone = document.getElementById('clickerTargetZone');
+    const quizZone = document.getElementById('quizQuestionZone');
 
-    // Escopo de variáveis do Mini-game Snake
-    let sBody = [];
-    let fPoint = { x: 0, y: 0 };
-    let sDx = 20;
-    let sDy = 0;
+    let gameLoopInterval = null;
+    let scoreCounter = 0;
+
+    // Estados e variáveis do escopo do Snake corrigidos contra o bug NaN
+    let snake = [];
+    let dx = 20;
+    let dy = 0;
+    let food = { x: 0, y: 0 };
 
     const cards = document.querySelectorAll('.game-card');
     cards.forEach(card => {
-        const runTrigger = () => openGameInterface(card.getAttribute('data-game'));
-        card.addEventListener('click', runTrigger);
-        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') runTrigger(); });
+        card.addEventListener('click', () => {
+            const gameType = card.getAttribute('data-game');
+            openArena(gameType);
+        });
     });
 
-    function openGameInterface(gameType) {
+    function openArena(type) {
         if (!modal) return;
         modal.classList.add('active');
-        modal.setAttribute('aria-hidden', 'false');
-        if (displayScore) displayScore.innerText = '0';
-        
-        currentGameState.score = 0;
-        currentGameState.isRunning = true;
+        scoreCounter = 0;
+        modalScore.innerText = scoreCounter;
 
-        if (snakeCanvas) snakeCanvas.style.display = 'none';
-        if (clickerArena) clickerArena.style.display = 'none';
-        if (quizArena) quizArena.style.display = 'none';
-        if (timerWrapper) timerWrapper.style.display = 'none';
-        
-        if (engineInterval) clearInterval(engineInterval);
-        if (countdownInterval) clearInterval(countdownInterval);
+        // Reset visual das sub-arenas
+        if (canvas) canvas.style.display = 'none';
+        if (clickerZone) clickerZone.style.display = 'none';
+        if (quizZone) quizZone.style.display = 'none';
+        if (gameLoopInterval) clearInterval(gameLoopInterval);
 
         document.removeEventListener('keydown', handleSnakeControls);
 
-        if (gameType === 'snake') {
-            if (modalTitle) modalTitle.innerText = 'Neon Snake System';
-            if (snakeCanvas) snakeCanvas.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Controles: Use as setas <kbd>▲</kbd> <kbd>▼</kbd> <kbd>◀</kbd> <kbd>▶</kbd> do teclado.';
-            runSnakeEngine();
-        } else if (gameType === 'clicker') {
-            if (modalTitle) modalTitle.innerText = 'Quantum Target Hunter';
-            if (clickerArena) clickerArena.style.display = 'block';
-            if (timerWrapper) timerWrapper.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Ação: Clique o mais rápido que conseguir no alvo antes que o tempo zere.';
-            runClickerEngine();
-        } else if (gameType === 'quiz') {
-            if (modalTitle) modalTitle.innerText = 'Tech Quiz Challenge';
-            if (quizArena) quizArena.style.display = 'block';
-            if (controlsGuide) controlsGuide.innerHTML = 'Teoria: Selecione as respostas corretas baseadas nos dados de mercado.';
-            runQuizEngine();
+        if (type === 'snake') {
+            if (modalTitle) modalTitle.innerText = '🐍 Neon Snake Active';
+            if (canvas) canvas.style.display = 'block';
+            if (controlsGuide) controlsGuide.innerHTML = 'Use as setas do teclado <kbd>▲</kbd> <kbd>▼</kbd> <kbd>◀</kbd> <kbd>▶</kbd>';
+            startSnakeEngine();
+        } else if (type === 'clicker') {
+            if (modalTitle) modalTitle.innerText = '⚡ Quantum Clicker Active';
+            if (clickerZone) clickerZone.style.display = 'block';
+            if (controlsGuide) controlsGuide.innerHTML = 'Clique repetidamente no núcleo atômico central.';
+            startClickerEngine();
+        } else if (type === 'quiz') {
+            if (modalTitle) modalTitle.innerText = '🏆 Tech Quiz Challenge';
+            if (quizZone) quizZone.style.display = 'block';
+            if (controlsGuide) controlsGuide.innerHTML = 'Selecione a alternativa correta baseada no conteúdo do projeto.';
+            startQuizEngine();
         }
     }
 
-    const closeBtn = document.getElementById('close-modal-x');
-    const shutdownModal = () => {
-        if (!modal) return;
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        if (engineInterval) clearInterval(engineInterval);
-        if (countdownInterval) clearInterval(countdownInterval);
-        currentGameState.isRunning = false;
-        document.removeEventListener('keydown', handleSnakeControls);
-    };
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            if (gameLoopInterval) clearInterval(gameLoopInterval);
+            document.removeEventListener('keydown', handleSnakeControls);
+        });
+    }
 
-    if (closeBtn) closeBtn.addEventListener('click', shutdownModal);
-    if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) shutdownModal(); });
-
-    /* ENGINE 1: SNAKE GAME */
-    function runSnakeEngine() {
-        if (!snakeCanvas) return;
-        const ctx = snakeCanvas.getContext('2d');
+    /* MINI GAME NATIVO 1: SNAKE CORE ENGINE REVISADO */
+    function startSnakeEngine() {
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
         
-        const currentSize = window.innerWidth <= 768 ? 290 : 360;
-        snakeCanvas.width = currentSize;
-        snakeCanvas.height = currentSize;
-
-        sBody = [{x: 100, y: 100}, {x: 80, y: 100}, {x: 60, y: 100}];
-        sDx = 20; 
-        sDy = 0;
-        generateFoodPosition(currentSize);
+        // Inicializa a cabeça estruturada no array de objetos
+        snake = [{x: 80, y: 80}, {x: 60, y: 80}];
+        dx = 20; 
+        dy = 0;
+        food = {x: 160, y: 160};
 
         document.addEventListener('keydown', handleSnakeControls);
 
-        engineInterval = setInterval(() => {
-            ctx.fillStyle = '#060814';
-            ctx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+        gameLoopInterval = setInterval(() => {
+            ctx.fillStyle = '#02010a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#dc2626';
-            ctx.fillRect(fPoint.x, fPoint.y, 18, 18);
+            // Desenha a partícula da comida
+            ctx.fillStyle = '#ff0055';
+            ctx.fillRect(food.x, food.y, 18, 18);
 
-            // CORREÇÃO CRÍTICA: Mapeia as coordenadas do primeiro elemento (cabeça) da lista
-            const sHead = { x: sBody[0].x + sDx, y: sBody[0].y + sDy };
+            // CORREÇÃO CRÍTICA: Mapeia as propriedades 'x' e 'y' acessando o primeiro índice (cabeça) da lista [0]
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            
+            // Comportamento de túnel infinito pelas paredes do Canvas
+            if (head.x < 0) head.x = 320;
+            if (head.x > 320) head.x = 0;
+            if (head.y < 0) head.y = 320;
+            if (head.y > 320) head.y = 0;
 
-            if (sHead.x < 0) sHead.x = snakeCanvas.width - 20;
-            if (sHead.x >= snakeCanvas.width) sHead.x = 0;
-            if (sHead.y < 0) sHead.y = snakeCanvas.height - 20;
-            if (sHead.y >= snakeCanvas.height) sHead.y = 0;
+            snake.unshift(head);
 
-            sBody.unshift(sHead);
-
-            if (sHead.x === fPoint.x && sHead.y === fPoint.y) {
-                currentGameState.score += 10;
-                if (displayScore) displayScore.innerText = currentGameState.score;
-                generateFoodPosition(snakeCanvas.width);
+            if (head.x === food.x && head.y === food.y) {
+                scoreCounter += 10;
+                modalScore.innerText = scoreCounter;
+                food.x = Math.floor(Math.random() * 15) * 20;
+                food.y = Math.floor(Math.random() * 15) * 20;
             } else {
-                sBody.pop();
+                snake.pop();
             }
 
-            sBody.forEach(cell => {
-                ctx.fillStyle = '#10b981';
-                ctx.fillRect(cell.x, cell.y, 18, 18);
+            // Desenha o corpo da cobra em neon estável
+            snake.forEach(part => {
+                ctx.fillStyle = '#00ff87';
+                ctx.fillRect(part.x, part.y, 18, 18);
             });
-        }, 120);
+        }, 130);
     }
 
     function handleSnakeControls(e) {
         if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-            e.preventDefault(); // Trava o scroll da página enquanto joga
+            e.preventDefault(); // Impede que a tela suba/desça jogando
         }
-        if (e.key === 'ArrowLeft' && sDx === 0) { sDx = -20; sDy = 0; }
-        if (e.key === 'ArrowUp' && sDy === 0) { sDx = 0; sDy = -20; }
-        if (e.key === 'ArrowRight' && sDx === 0) { sDx = 20; sDy = 0; }
-        if (e.key === 'ArrowDown' && sDy === 0) { sDx = 0; sDy = 20; }
+        if (e.key === 'ArrowLeft' && dx === 0) { dx = -20; dy = 0; }
+        if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -20; }
+        if (e.key === 'ArrowRight' && dx === 0) { dx = 20; dy = 0; }
+        if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 20; }
     }
 
-    function generateFoodPosition(size) {
-        const gridMax = (size / 20) - 1;
-        fPoint = {
-            x: Math.floor(Math.random() * gridMax) * 20,
-            y: Math.floor(Math.random() * gridMax) * 20
+    /* MINI GAME NATIVO 2: CLICKER ENGINE */
+    function startClickerEngine() {
+        const atom = document.getElementById('coreTargetAtom');
+        if (!atom) return;
+        
+        atom.style.cssText = "padding:1.5rem; background:#00d2ff; color:black; font-weight:bold; border:none; border-radius:50%; cursor:pointer; box-shadow:0 0 20px #00d2ff;";
+        
+        atom.onclick = () => {
+            scoreCounter++;
+            modalScore.innerText = scoreCounter;
         };
     }
 
-    /* ENGINE 2: QUANTUM TARGET HUNTER */
-    function runClickerEngine() {
-        currentGameState.timer = 10;
-        if (displayTimer) displayTimer.innerText = currentGameState.timer;
-        const target = document.getElementById('quantumTarget');
-        if (!target) return;
-        
-        target.style.top = '50%'; 
-        target.style.left = '50%';
-        target.disabled = false;
+    /* MINI GAME NATIVO 3: QUIZ ENGINE */
+    function startQuizEngine() {
+        const questionText = document.getElementById('quiz-question-prompt');
+        const stack = document.getElementById('quiz-answers-stack');
+        if (!questionText || !stack) return;
 
-        target.onclick = () => {
-            if (!currentGameState.isRunning) return;
-            currentGameState.score++;
-            if (displayScore) displayScore.innerText = currentGameState.score;
-            
-            const rx = Math.floor(Math.random() * 80) + 10;
-            const ry = Math.floor(Math.random() * 80) + 10;
-            target.style.left = `${rx}%`;
-            target.style.top = `${ry}%`;
-        };
+        questionText.innerText = "Qual elemento HTML é utilizado para renderizar os gráficos dos jogos nativos via Script?";
+        stack.innerHTML = "";
 
-        countdownInterval = setInterval(() => {
-            currentGameState.timer--;
-            if (displayTimer) displayTimer.innerText = currentGameState.timer;
-            if (currentGameState.timer <= 0) {
-                clearInterval(countdownInterval);
-                currentGameState.isRunning = false;
-                target.disabled = true;
-                if (modalTitle) modalTitle.innerText = 'Sessão Finalizada!';
-            }
-        }, 1000);
+        const options = ["<section>", "<canvas>", "<video>", "<div>"];
+        options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-opt-btn';
+            btn.style.cssText = "width:100%; padding:0.6rem; margin-top:0.5rem; background:#161245; color:white; border:1px solid #231a66; border-radius:6px; cursor:pointer;";
+            btn.innerText = opt;
+            btn.onclick = () => {
+                if (index === 1) { // Alternativa correta: <canvas>
+                    scoreCounter += 100;
+                    modalScore.innerText = scoreCounter;
+                    questionText.innerText = "Parabéns! Resposta Correta.";
+                    stack.innerHTML = "";
+                } else {
+                    questionText.innerText = "Resposta incorreta. Tente novamente!";
+                }
+            };
+            stack.appendChild(btn);
+        });
     }
-
-    /* ENGINE 3: HISTÓRIA / TECH QUIZ ACADÊMICO */
-    const quizData = [
-        { q: "Qual jogo marcou o início comercial da indústria em 1972?", o: ["Pac-Man", "Pong", "Tetris"], a: 1 },
-        { q: "O que preconiza a WCAG no desenvolvimento de interfaces?", o: ["Apenas estética", "Inclusão e Acessibilidade", "Exclusão de scripts"], a: 1 }
-    ];
-    let qIdx = 0;
-
-    function runQuizEngine() {
-        qIdx = 0;
-        renderQuizQuestion();
-    }
-
-    function renderQuizQuestion() {
-        const qText = document.getElementById('quiz-question-text');
-        const container = document.getElementById('quiz-options-container');
-        
-        if (!qText || !container) return;
-
-        if (qIdx >= quizData.length) {
+}

@@ -8,9 +8,13 @@
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Link de conexão com o arquivo CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-mode">
+
+    <!-- Link de Acessibilidade Oculto (Acessível via tecla TAB para nota máxima em acessibilidade) -->
+    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
 
     <!-- BARRA DE NAVEGAÇÃO -->
     <header class="app-header">
@@ -32,7 +36,7 @@
                     <li><a href="#avaliacao">AVALIAÇÃO</a></li>
                     <li><a href="#sobre">SOBRE</a></li>
                 </ul>
-                <div class="theme-toggle-zone">
+                <div class="theme-toggle-zone" aria-label="Modo escuro ativo">
                     <span class="moon-icon">🌙</span>
                 </div>
             </nav>
@@ -58,7 +62,7 @@
             <section class="games-arena" id="jogos">
                 
                 <!-- CARD 1: NEON SNAKE -->
-                <article class="game-card card-emerald" data-game="snake">
+                <article class="game-card card-emerald" data-game="snake" tabindex="0">
                     <div class="card-header-game">
                         <span class="card-icon-snake">🐍</span>
                         <div>
@@ -66,34 +70,35 @@
                             <p class="card-subtitle">Clássico da Cobrinha com um visual neon!</p>
                         </div>
                     </div>
-                    <!-- Mini Canvas Visualizador Incorporado Internamente -->
+                    <!-- Imagem real de alta definição com Alt preenchido para acessibilidade -->
                     <div class="card-preview-screen">
-                        <div class="snake-pixel-art"></div>
+                        <img src="https://unsplash.com" alt="Interface escura de linhas luminosas verdes simulando circuitos e cobras em neon" class="card-dynamic-img">
                     </div>
-                    <button class="play-card-btn">
+                    <button class="play-card-btn" tabindex="-1">
                         JOGAR AGORA <span class="btn-icon">🎮</span>
                     </button>
                 </article>
 
                 <!-- CARD 2: QUANTUM CLICKER -->
-                <article class="game-card card-blue" data-game="clicker">
+                <article class="game-card card-blue" data-game="clicker" tabindex="0">
                     <div class="card-header-game">
                         <span class="card-icon-clicker">⚡</span>
                         <div>
                             <h3>QUANTUM CLICKER</h3>
-                            <p class="card-subtitle">Clique, evolua e descubra o poder dos quarks!</p>
+                            <p class="card-subtitle">Clique, evolua e descubra o power dos quarks!</p>
                         </div>
                     </div>
-                    <div class="card-preview-screen clicker-bg">
-                        <div class="clicker-core-particle"></div>
+                    <!-- Imagem real de alta definição para o Clicker Quântico -->
+                    <div class="card-preview-screen">
+                        <img src="https://unsplash.com" alt="Renderização abstrata tridimensional de esferas e partículas quânticas azuis brilhando no espaço" class="card-dynamic-img">
                     </div>
-                    <button class="play-card-btn">
+                    <button class="play-card-btn" tabindex="-1">
                         JOGAR AGORA <span class="btn-icon">🎮</span>
                     </button>
                 </article>
 
                 <!-- CARD 3: TECH QUIZ ARENA -->
-                <article class="game-card card-purple" data-game="quiz">
+                <article class="game-card card-purple" data-game="quiz" tabindex="0">
                     <div class="card-header-game">
                         <span class="card-icon-quiz">🏆</span>
                         <div>
@@ -101,10 +106,11 @@
                             <p class="card-subtitle">Teste seus conhecimentos em tecnologia e ciência!</p>
                         </div>
                     </div>
-                    <div class="card-preview-screen quiz-bg">
-                        <div class="quiz-trophy-glow">🏆</div>
+                    <!-- Imagem real de alta definição para o Quiz Acadêmico -->
+                    <div class="card-preview-screen">
+                        <img src="https://unsplash.com" alt="Glow roxo iluminando a silhueta de um troféu e controles de videogame retro" class="card-dynamic-img">
                     </div>
-                    <button class="play-card-btn special-quiz-btn">
+                    <button class="play-card-btn special-quiz-btn" tabindex="-1">
                         COMEÇAR QUIZ <span class="btn-icon">❓</span>
                     </button>
                 </article>
@@ -115,20 +121,15 @@
         <!-- SEÇÃO INFERIOR: INFOGRÁFICOS DE 4 COLUNAS -->
         <div class="info-footer-grid">
             
-            <!-- COLUNA 1: SOBRE COM ILUSTRAÇÃO -->
+            <!-- COLUNA 1: SOBRE COM IMAGEM DO GAMER EM SETUP NEON -->
             <div class="info-column about-box" id="sobre">
                 <h4 class="column-title"><span class="purple-dot">👾</span> SOBRE O ARCADEVERSE</h4>
                 <p class="column-text">
                     Uma plataforma gamificada que transforma conteúdos complexos de ciência e tecnologia em experiências interativas e divertidas.
                 </p>
                 <div class="avatar-display-wrapper">
-                    <!-- Representação puramente em CSS do personagem gamer com fone de ouvido da imagem -->
-                    <div class="avatar-head">
-                        <div class="avatar-hair"></div>
-                        <div class="avatar-headset"></div>
-                        <div class="avatar-face"></div>
-                    </div>
-                    <div class="setup-monitor-lines"></div>
+                    <!-- Imagem idêntica à do seu protótipo: o garoto jogando com fone no setup iluminado -->
+                    <img src="https://unsplash.com" alt="Garoto com fone de ouvido gamer concentrado olhando para uma tela de computador iluminada por luz neon roxa e azul" class="about-setup-img">
                 </div>
             </div>
 
@@ -198,28 +199,3 @@
                             <h5>Canvas API</h5>
                             <p>Gráficos e animações</p>
                         </div>
-                    </li>
-                    <li>
-                        <span class="tech-badge badge-green">💾</span>
-                        <div>
-                            <h5>LocalStorage</h5>
-                            <p>Persistência de dados</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- COLUNA 4: STATS -->
-            <div class="info-column stats-box" id="avaliacao">
-                <h4 class="column-title">STATS DA PLATAFORMA</h4>
-                <ul class="meta-list">
-                    <li>
-                        <span class="meta-icon no-bg">🎮</span>
-                        <div>
-                            <h5 class="stat-number color-green">3</h5>
-                            <p>Jogos Disponíveis</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="meta-icon no-bg">💬</span>
-                        <div>

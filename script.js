@@ -1,169 +1,877 @@
-/**
- * ARCADEVERSE - CORE PLATFORM SYSTEM SCRIPT
- * Código totalmente auditado contra falhas lógicas e erros de runtime.
- */
+/* =========================================================
+   PROJETOLAB — SCRIPT PRINCIPAL
+   ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
-    initModalGameSystem();
-});
+'use strict';
 
-function initModalGameSystem() {
-    const modal = document.getElementById('game-modal');
-    const modalTitle = document.getElementById('modal-game-title');
-    const modalScore = document.getElementById('modal-score-value');
-    const closeBtn = document.getElementById('close-modal-x');
+/* =========================================================
+   ELEMENTOS
+   ========================================================= */
 
-    const canvas = document.getElementById('arcadeCanvas');
-    const clickerZone = document.getElementById('clickerZone');
-    const quizZone = document.getElementById('quizZone');
+const body = document.body;
 
-    let gameLoopInterval = null;
-    let scoreCounter = 0;
+const themeToggle = document.getElementById('themeToggle');
+const menuToggle = document.getElementById('menuToggle');
+const nav = document.querySelector('.nav');
 
-    // Estados e variáveis do escopo do Snake blindados contra erros matemáticos
-    let snake = [];
-    let dx = 20;
-    let dy = 0;
-    let food = { x: 0, y: 0 };
+const modal = document.getElementById('modal');
+const modalClose = document.getElementById('modalClose');
+const modalTitle = document.getElementById('modalTitle');
+const modalText = document.getElementById('modalText');
+const modalNumber = document.getElementById('modalNumber');
+const modalKicker = document.getElementById('modalKicker');
+const modalImpact = document.getElementById('modalImpact');
 
-    const cards = document.querySelectorAll('.arcade-card');
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            const gameType = card.getAttribute('data-game');
-            openArena(gameType);
-        });
-    });
+const processDetail = document.getElementById('processDetail');
 
-    function openArena(type) {
-        if (!modal) return;
-        modal.classList.add('active');
-        scoreCounter = 0;
-        modalScore.innerText = scoreCounter;
+const reflectionForm = document.getElementById('reflectionForm');
+const discoveryOne = document.getElementById('discoveryOne');
+const discoveryTwo = document.getElementById('discoveryTwo');
 
-        if (canvas) canvas.style.display = 'none';
-        if (clickerZone) clickerZone.style.display = 'none';
-        if (quizZone) quizZone.style.display = 'none';
-        if (gameLoopInterval) clearInterval(gameLoopInterval);
+const countOne = document.getElementById('countOne');
+const countTwo = document.getElementById('countTwo');
 
-        document.removeEventListener('keydown', handleSnakeControls);
+const saveStatus = document.getElementById('saveStatus');
+const clearReflection = document.getElementById('clearReflection');
 
-        if (type === 'snake') {
-            if (modalTitle) modalTitle.innerText = '🐍 Neon Snake Ativo';
-            if (canvas) canvas.style.display = 'block';
-            startSnakeEngine();
-        } else if (type === 'clicker') {
-            if (modalTitle) modalTitle.innerText = '⚡ Quantum Clicker Ativo';
-            if (clickerZone) clickerZone.style.display = 'block';
-            startClickerEngine();
-        } else if (type === 'quiz') {
-            if (modalTitle) modalTitle.innerText = '🏆 Tech Quiz Challenge';
-            if (quizZone) quizZone.style.display = 'block';
-            startQuizEngine();
-        }
-    }
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            if (gameLoopInterval) clearInterval(gameLoopInterval);
-            document.removeEventListener('keydown', handleSnakeControls);
-        });
-    }
+/* =========================================================
+   DADOS DAS DESCOBERTAS
+   ========================================================= */
 
-    /* MINI GAME 1: SNAKE CORE ENGINE TOTALMENTE CORRIGIDO */
-    function startSnakeEngine() {
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        
-        snake = [{x: 80, y: 80}, {x: 60, y: 80}];
-        dx = 20; 
-        dy = 0;
-        food = {x: 160, y: 160};
+const discoveries = {
+  1: {
+    number: '01',
+    kicker: 'NOVO APRENDIZADO',
+    title: 'Entendemos melhor o problema',
+    text:
+      'Durante a pesquisa e o desenvolvimento, percebemos que o problema investigado possuía mais aspectos do que imaginávamos inicialmente. Essa descoberta fez com que o grupo pesquisasse melhor, comparasse informações e pensasse com mais cuidado antes de definir a solução.',
+    impact:
+      'A pesquisa passou a orientar melhor as decisões do projeto.'
+  },
 
-        document.addEventListener('keydown', handleSnakeControls);
+  2: {
+    number: '02',
+    kicker: 'MUDANÇA DE PERSPECTIVA',
+    title: 'Nossa solução evoluiu',
+    text:
+      'Ao testar ideias e conversar sobre os resultados, percebemos que a primeira proposta poderia ser melhorada. O grupo passou a considerar novas possibilidades e modificou alguns pontos para tornar a solução mais adequada ao problema.',
+    impact:
+      'A solução final ficou mais coerente com as necessidades identificadas.'
+  }
+};
 
-        gameLoopInterval = setInterval(() => {
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Renderiza a maçã no canvas
-            ctx.fillStyle = '#ff0055';
-            ctx.fillRect(food.x, food.y, 18, 18);
+/* =========================================================
+   DADOS DA TIMELINE
+   ========================================================= */
 
-            // CORREÇÃO DEFINITIVA: Acessa o índice 0 da lista (cabeça) para computar o vetor de movimento
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-            
-            // Tratamento de colisão por borda infinita
-            if (head.x < 0) head.x = 320;
-            if (head.x > 320) head.x = 0;
-            if (head.y < 0) head.y = 320;
-            if (head.y > 320) head.y = 0;
+const processSteps = [
+  {
+    label: 'ETAPA 01',
+    title: 'Investigar antes de concluir',
+    text:
+      'O grupo reuniu informações, comparou ideias e percebeu que compreender bem o problema era essencial para criar uma solução mais coerente.'
+  },
 
-            snake.unshift(head);
+  {
+    label: 'ETAPA 02',
+    title: 'Questionar o que já tínhamos pensado',
+    text:
+      'Durante as conversas e análises, novas perguntas apareceram. Isso ajudou o grupo a perceber possibilidades que não estavam presentes na ideia inicial.'
+  },
 
-            if (head.x === food.x && head.y === food.y) {
-                scoreCounter += 10;
-                modalScore.innerText = scoreCounter;
-                food.x = Math.floor(Math.random() * 15) * 20;
-                food.y = Math.floor(Math.random() * 15) * 20;
-            } else {
-                snake.pop();
-            }
+  {
+    label: 'ETAPA 03',
+    title: 'Transformar percepção em melhoria',
+    text:
+      'As novas descobertas foram utilizadas para ajustar o projeto. Assim, o processo deixou de ser apenas uma execução e passou a ser uma evolução contínua.'
+  }
+];
 
-            // Desenha o corpo da cobra
-            snake.forEach(part => {
-                ctx.fillStyle = '#00ff87';
-                ctx.fillRect(part.x, part.y, 18, 18);
-            });
-        }, 130);
-    }
 
-    function handleSnakeControls(e) {
-        if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-            e.preventDefault(); // Impede a rolagem involuntária do navegador
-        }
-        if (e.key === 'ArrowLeft' && dx === 0) { dx = -20; dy = 0; }
-        if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -20; }
-        if (e.key === 'ArrowRight' && dx === 0) { dx = 20; dy = 0; }
-        if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 20; }
-    }
+/* =========================================================
+   TEMA CLARO / ESCURO
+   ========================================================= */
 
-    /* MINI GAME 2: CLICKER ENGINE */
-    function startClickerEngine() {
-        const target = document.getElementById('clickerTarget');
-        if (!target) return;
-        target.style.cssText = "padding:1.5rem; background:#00d2ff; color:black; font-weight:bold; border:none; border-radius:50%; cursor:pointer; box-shadow:0 0 20px #00d2ff; font-family: inherit;";
-        target.onclick = () => {
-            scoreCounter++;
-            modalScore.innerText = scoreCounter;
-        };
-    }
+function updateThemeButton() {
+  if (!themeToggle) return;
 
-    /* MINI GAME 3: QUIZ ENGINE ACADÊMICO */
-    function startQuizEngine() {
-        const questionText = document.getElementById('quiz-question');
-        const optionsStack = document.getElementById('quiz-options');
-        if (!questionText || !optionsStack) return;
+  const isLight = body.classList.contains('light');
 
-        questionText.innerText = "Qual elemento HTML é utilizado para renderizar os gráficos dos jogos nativos via Script?";
-        optionsStack.innerHTML = "";
+  themeToggle.textContent = isLight ? '☀' : '☾';
 
-        const options = ["<section>", "<canvas>", "<video>", "<div>"];
-        options.forEach((opt, index) => {
-            const btn = document.createElement('button');
-            btn.style.cssText = "width:100%; padding:0.6rem; margin-top:0.5rem; background:#161245; color:white; border:1px solid #231a66; border-radius:6px; cursor:pointer; font-family: inherit;";
-            btn.innerText = opt;
-            btn.onclick = () => {
-                if (index === 1) { // Mapeia <canvas> como correta
-                    scoreCounter += 100;
-                    modalScore.innerText = scoreCounter;
-                    questionText.innerText = "Parabéns! Resposta Correta.";
-                    optionsStack.innerHTML = "";
-                } else {
-                    questionText.innerText = "Resposta incorreta. Tente novamente!";
-                }
-            };
-            optionsStack.appendChild(btn);
-        });
-    }
+  themeToggle.setAttribute(
+    'aria-label',
+    isLight
+      ? 'Ativar tema escuro'
+      : 'Ativar tema claro'
+  );
+
+  themeToggle.setAttribute(
+    'title',
+    isLight
+      ? 'Ativar tema escuro'
+      : 'Ativar tema claro'
+  );
 }
+
+
+function loadTheme() {
+  try {
+    const savedTheme = localStorage.getItem('projetolab-theme');
+
+    if (savedTheme === 'light') {
+      body.classList.add('light');
+    } else {
+      body.classList.remove('light');
+    }
+  } catch (error) {
+    console.warn(
+      'Não foi possível carregar o tema salvo.',
+      error
+    );
+  }
+
+  updateThemeButton();
+}
+
+
+function toggleTheme() {
+  const isLight = body.classList.toggle('light');
+
+  try {
+    localStorage.setItem(
+      'projetolab-theme',
+      isLight ? 'light' : 'dark'
+    );
+  } catch (error) {
+    console.warn(
+      'Não foi possível salvar o tema.',
+      error
+    );
+  }
+
+  updateThemeButton();
+}
+
+
+if (themeToggle) {
+  themeToggle.addEventListener(
+    'click',
+    toggleTheme
+  );
+}
+
+loadTheme();
+
+
+/* =========================================================
+   MENU MOBILE
+   ========================================================= */
+
+function closeMenu() {
+  if (!nav || !menuToggle) return;
+
+  nav.classList.remove('open');
+
+  menuToggle.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+}
+
+
+function toggleMenu() {
+  if (!nav || !menuToggle) return;
+
+  const isOpen =
+    nav.classList.toggle('open');
+
+  menuToggle.setAttribute(
+    'aria-expanded',
+    String(isOpen)
+  );
+}
+
+
+if (menuToggle) {
+  menuToggle.addEventListener(
+    'click',
+    toggleMenu
+  );
+}
+
+
+if (nav) {
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener(
+      'click',
+      closeMenu
+    );
+  });
+}
+
+
+/* =========================================================
+   ANIMAÇÃO DOS ELEMENTOS AO ROLAR
+   ========================================================= */
+
+const revealElements =
+  document.querySelectorAll('.reveal');
+
+
+function revealOnScroll() {
+
+  const windowHeight =
+    window.innerHeight;
+
+  revealElements.forEach(element => {
+
+    const elementTop =
+      element.getBoundingClientRect().top;
+
+    const visible =
+      elementTop <
+      windowHeight - 70;
+
+    if (visible) {
+      element.classList.add('visible');
+    }
+
+  });
+}
+
+
+if ('IntersectionObserver' in window) {
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add(
+              'visible'
+            );
+
+            observer.unobserve(
+              entry.target
+            );
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+  revealElements.forEach(element => {
+    observer.observe(element);
+  });
+
+} else {
+
+  window.addEventListener(
+    'scroll',
+    revealOnScroll
+  );
+
+  revealOnScroll();
+}
+
+
+/* =========================================================
+   MODAL DAS DESCOBERTAS
+   ========================================================= */
+
+let lastFocusedElement = null;
+
+
+function openModal(id) {
+
+  const discovery =
+    discoveries[id];
+
+  if (!discovery || !modal) return;
+
+  lastFocusedElement =
+    document.activeElement;
+
+  modalNumber.textContent =
+    discovery.number;
+
+  modalKicker.textContent =
+    discovery.kicker;
+
+  modalTitle.textContent =
+    discovery.title;
+
+  modalText.textContent =
+    discovery.text;
+
+  modalImpact.textContent =
+    discovery.impact;
+
+  modal.classList.add('open');
+
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  body.style.overflow = 'hidden';
+
+  if (modalClose) {
+    modalClose.focus();
+  }
+}
+
+
+function closeModal() {
+
+  if (!modal) return;
+
+  modal.classList.remove('open');
+
+  modal.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  body.style.overflow = '';
+
+  if (
+    lastFocusedElement &&
+    typeof lastFocusedElement.focus === 'function'
+  ) {
+    lastFocusedElement.focus();
+  }
+}
+
+
+document
+  .querySelectorAll('.open-modal')
+  .forEach(button => {
+
+    button.addEventListener(
+      'click',
+      () => {
+
+        const id =
+          button.dataset.id;
+
+        openModal(id);
+      }
+    );
+
+  });
+
+
+if (modalClose) {
+  modalClose.addEventListener(
+    'click',
+    closeModal
+  );
+}
+
+
+document
+  .querySelectorAll('[data-close-modal]')
+  .forEach(element => {
+
+    element.addEventListener(
+      'click',
+      closeModal
+    );
+
+  });
+
+
+document.addEventListener(
+  'keydown',
+  event => {
+
+    if (
+      event.key === 'Escape' &&
+      modal &&
+      modal.classList.contains('open')
+    ) {
+      closeModal();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   TIMELINE INTERATIVA
+   ========================================================= */
+
+const timelineItems =
+  document.querySelectorAll(
+    '.timeline-item'
+  );
+
+
+function updateProcess(step) {
+
+  const data =
+    processSteps[step];
+
+  if (!data || !processDetail) {
+    return;
+  }
+
+  const label =
+    processDetail.querySelector(
+      '.detail-label'
+    );
+
+  const title =
+    processDetail.querySelector('h3');
+
+  const text =
+    processDetail.querySelector('p');
+
+  if (label) {
+    label.textContent =
+      data.label;
+  }
+
+  if (title) {
+    title.textContent =
+      data.title;
+  }
+
+  if (text) {
+    text.textContent =
+      data.text;
+  }
+
+  timelineItems.forEach(
+    (item, index) => {
+
+      item.classList.toggle(
+        'active',
+        index === step
+      );
+
+    }
+  );
+}
+
+
+timelineItems.forEach(
+  (item, index) => {
+
+    item.addEventListener(
+      'click',
+      () => {
+        updateProcess(index);
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   CONTADOR DE CARACTERES
+   ========================================================= */
+
+function updateCounter(
+  textarea,
+  counter
+) {
+
+  if (!textarea || !counter) {
+    return;
+  }
+
+  const length =
+    textarea.value.length;
+
+  const maximum =
+    textarea.maxLength;
+
+  counter.textContent =
+    `${length}/${maximum}`;
+
+  if (length >= maximum * 0.9) {
+
+    counter.style.color =
+      '#ff4fd8';
+
+  } else {
+
+    counter.style.color =
+      '';
+  }
+}
+
+
+if (discoveryOne) {
+
+  discoveryOne.addEventListener(
+    'input',
+    () => {
+      updateCounter(
+        discoveryOne,
+        countOne
+      );
+    }
+  );
+
+}
+
+
+if (discoveryTwo) {
+
+  discoveryTwo.addEventListener(
+    'input',
+    () => {
+      updateCounter(
+        discoveryTwo,
+        countTwo
+      );
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SALVAR REFLEXÕES
+   ========================================================= */
+
+const STORAGE_KEY =
+  'projetolab-reflexoes';
+
+
+function showStatus(
+  message,
+  success = true
+) {
+
+  if (!saveStatus) return;
+
+  saveStatus.textContent =
+    message;
+
+  saveStatus.style.color =
+    success
+      ? ''
+      : '#ff4fd8';
+
+  window.clearTimeout(
+    showStatus.timeout
+  );
+
+  showStatus.timeout =
+    window.setTimeout(
+      () => {
+
+        saveStatus.textContent =
+          '';
+
+      },
+      4000
+    );
+}
+
+
+function saveReflections() {
+
+  if (!discoveryOne || !discoveryTwo) {
+    return;
+  }
+
+  const data = {
+    discoveryOne:
+      discoveryOne.value.trim(),
+
+    discoveryTwo:
+      discoveryTwo.value.trim(),
+
+    savedAt:
+      new Date().toISOString()
+  };
+
+  try {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(data)
+    );
+
+    showStatus(
+      '✓ Reflexões salvas neste navegador.'
+    );
+
+  } catch (error) {
+
+    showStatus(
+      'Não foi possível salvar as reflexões.',
+      false
+    );
+
+    console.error(
+      'Erro ao salvar:',
+      error
+    );
+  }
+}
+
+
+/* =========================================================
+   CARREGAR REFLEXÕES
+   ========================================================= */
+
+function loadReflections() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+    if (!saved) return;
+
+    const data =
+      JSON.parse(saved);
+
+    if (
+      data &&
+      typeof data === 'object'
+    ) {
+
+      if (
+        discoveryOne &&
+        typeof data.discoveryOne === 'string'
+      ) {
+
+        discoveryOne.value =
+          data.discoveryOne;
+
+      }
+
+      if (
+        discoveryTwo &&
+        typeof data.discoveryTwo === 'string'
+      ) {
+
+        discoveryTwo.value =
+          data.discoveryTwo;
+
+      }
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      'Não foi possível carregar as reflexões salvas.',
+      error
+    );
+
+  }
+
+  updateCounter(
+    discoveryOne,
+    countOne
+  );
+
+  updateCounter(
+    discoveryTwo,
+    countTwo
+  );
+}
+
+
+loadReflections();
+
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+if (reflectionForm) {
+
+  reflectionForm.addEventListener(
+    'submit',
+    event => {
+
+      event.preventDefault();
+
+      if (!reflectionForm.checkValidity()) {
+
+        reflectionForm.reportValidity();
+
+        showStatus(
+          'Preencha as duas descobertas antes de salvar.',
+          false
+        );
+
+        return;
+      }
+
+      saveReflections();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LIMPAR REFLEXÕES
+   ========================================================= */
+
+if (clearReflection) {
+
+  clearReflection.addEventListener(
+    'click',
+    () => {
+
+      if (discoveryOne) {
+        discoveryOne.value = '';
+      }
+
+      if (discoveryTwo) {
+        discoveryTwo.value = '';
+      }
+
+      updateCounter(
+        discoveryOne,
+        countOne
+      );
+
+      updateCounter(
+        discoveryTwo,
+        countTwo
+      );
+
+      try {
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+      } catch (error) {
+
+        console.warn(
+          'Não foi possível remover os dados salvos.',
+          error
+        );
+
+      }
+
+      showStatus(
+        'Reflexões apagadas.'
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FECHAR MENU AO CLICAR FORA
+   ========================================================= */
+
+document.addEventListener(
+  'click',
+  event => {
+
+    if (
+      !nav ||
+      !menuToggle ||
+      !nav.classList.contains('open')
+    ) {
+      return;
+    }
+
+    const clickedInsideMenu =
+      nav.contains(event.target);
+
+    const clickedButton =
+      menuToggle.contains(event.target);
+
+    if (
+      !clickedInsideMenu &&
+      !clickedButton
+    ) {
+      closeMenu();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ESC FECHA MENU MOBILE
+   ========================================================= */
+
+document.addEventListener(
+  'keydown',
+  event => {
+
+    if (
+      event.key === 'Escape' &&
+      nav &&
+      nav.classList.contains('open')
+    ) {
+      closeMenu();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   FECHAR MENU QUANDO A TELA VOLTAR AO DESKTOP
+   ========================================================= */
+
+window.addEventListener(
+  'resize',
+  () => {
+
+    if (
+      window.innerWidth > 900
+    ) {
+      closeMenu();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+document.addEventListener(
+  'DOMContentLoaded',
+  () => {
+
+    updateCounter(
+      discoveryOne,
+      countOne
+    );
+
+    updateCounter(
+      discoveryTwo,
+      countTwo
+    );
+
+    updateProcess(0);
+
+  }
+);

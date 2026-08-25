@@ -3,128 +3,224 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Duas descobertas importantes que surgiram durante o desenvolvimento do projeto.">
-  <meta name="theme-color" content="#09051a">
-  <title>Duas Descobertas | Diário do Projeto</title>
+
+  <title>ProjetoLab | Duas Descobertas</title>
+
+  <meta
+    name="description"
+    content="Duas descobertas importantes que surgiram durante o desenvolvimento do projeto."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="stars" aria-hidden="true"></div>
 
-  <header class="topbar" id="inicio">
-    <a class="brand" href="#inicio" aria-label="Voltar ao início">
-      <span class="brand-mark" aria-hidden="true">✦</span>
+  <!-- FUNDO -->
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+  <div class="stars"></div>
 
-      <span>
-        <strong>PROJETO<span>LAB</span></strong>
-        <small>APRENDER • REFLETIR • EVOLUIR</small>
-      </span>
-    </a>
+  <!-- CABEÇALHO -->
+  <header class="header">
 
-    <nav class="nav" aria-label="Navegação principal">
+    <div class="header-container">
+
+      <a href="#inicio" class="logo">
+
+        <div class="logo-icon">
+          ✦
+        </div>
+
+        <div class="logo-text">
+          <strong>PROJETO<span>LAB</span></strong>
+          <small>APRENDER • REFLETIR • EVOLUIR</small>
+        </div>
+
+      </a>
+
+      <nav class="navigation">
+
+        <a href="#inicio" class="active">
+          Início
+        </a>
+
+        <a href="#descobertas">
+          Descobertas
+        </a>
+
+        <a href="#processo">
+          Processo
+        </a>
+
+        <a href="#reflexao">
+          Reflexão
+        </a>
+
+      </nav>
+
+      <div class="header-buttons">
+
+        <button
+          class="icon-button"
+          id="themeButton"
+          aria-label="Alterar tema"
+          type="button"
+        >
+          ☾
+        </button>
+
+        <button
+          class="icon-button menu-button"
+          id="menuButton"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          type="button"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+
+    <nav class="mobile-navigation" id="mobileNavigation">
+
+      <a href="#inicio">Início</a>
       <a href="#descobertas">Descobertas</a>
       <a href="#processo">Processo</a>
       <a href="#reflexao">Reflexão</a>
+
     </nav>
 
-    <button
-      class="icon-button"
-      id="themeToggle"
-      type="button"
-      aria-label="Alternar tema"
-      title="Alternar tema">
-      ☾
-    </button>
-
-    <button
-      class="menu-button"
-      id="menuToggle"
-      type="button"
-      aria-label="Abrir menu"
-      aria-expanded="false">
-      ☰
-    </button>
   </header>
+
 
   <main>
 
     <!-- HERO -->
-    <section class="hero section-shell" aria-labelledby="hero-title">
+    <section class="hero section" id="inicio">
 
-      <div class="hero-copy reveal">
+      <div class="hero-content reveal">
 
         <div class="eyebrow">
           <span></span>
           DIÁRIO DE DESCOBERTAS
         </div>
 
-        <h1 id="hero-title">
-          DUAS <em>DESCOBERTAS</em><br>
-          QUE MUDARAM O PROJETO
+        <h1>
+          DUAS
+          <br>
+          <em>DESCOBERTAS</em>
+          <br>
+          QUE MUDARAM
+          <br>
+          O PROJETO
         </h1>
 
-        <p class="hero-text">
+        <p class="hero-description">
           Durante o desenvolvimento, novas ideias surgiram,
-          nossa compreensão do problema mudou e a solução ganhou
-          uma direção mais clara.
+          nossa compreensão do problema mudou e a solução
+          ganhou uma direção mais clara.
         </p>
 
         <div class="hero-actions">
 
-          <a class="button button-primary" href="#descobertas">
+          <a
+            href="#descobertas"
+            class="button primary-button"
+          >
             Explorar descobertas
             <span>→</span>
           </a>
 
-          <a class="button button-ghost" href="#processo">
+          <a
+            href="#processo"
+            class="button secondary-button"
+          >
             Ver processo
           </a>
 
         </div>
 
-        <div class="hero-stats" aria-label="Resumo do projeto">
+        <div class="statistics">
 
-          <div>
+          <div class="statistic">
             <strong>02</strong>
-            <span>descobertas</span>
+            <span>Descobertas</span>
           </div>
 
-          <div>
+          <div class="statistic">
             <strong>03</strong>
-            <span>etapas-chave</span>
+            <span>Etapas-chave</span>
           </div>
 
-          <div>
+          <div class="statistic">
             <strong>∞</strong>
-            <span>possibilidades</span>
+            <span>Possibilidades</span>
           </div>
 
         </div>
 
       </div>
 
-      <div
-        class="hero-art reveal delay-1"
-        aria-label="Ilustração sobre novas ideias e aprendizado">
 
-        <div class="orb orb-one"></div>
-        <div class="orb orb-two"></div>
+      <!-- ILUSTRAÇÃO -->
+      <div class="hero-visual reveal delay">
 
-        <div class="brain">🧠</div>
+        <div class="visual-grid"></div>
 
-        <div class="idea idea-a">💡</div>
-        <div class="idea idea-b">⚙</div>
-        <div class="idea idea-c">⌁</div>
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
 
-        <div class="connection c1"></div>
-        <div class="connection c2"></div>
-        <div class="connection c3"></div>
+        <div class="floating-icon search-icon">
+          ⌕
+        </div>
 
-        <div class="art-caption">
+        <div class="floating-icon gear-icon">
+          ⚙
+        </div>
+
+        <div class="floating-icon chart-icon">
+          ↗
+        </div>
+
+        <div class="floating-icon bulb-icon">
+          💡
+        </div>
+
+        <div class="brain">
+
+          <div class="brain-half brain-left"></div>
+          <div class="brain-half brain-right"></div>
+
+          <div class="brain-center"></div>
+
+        </div>
+
+        <div class="platform">
+
           <span></span>
+          <span></span>
+          <span></span>
+
+        </div>
+
+        <div class="visual-caption">
+
+          <span class="live"></span>
+
           NOVAS PERCEPÇÕES EM MOVIMENTO
+
         </div>
 
       </div>
@@ -134,9 +230,9 @@
 
     <!-- DESCOBERTAS -->
     <section
-      class="discoveries section-shell"
+      class="section discoveries"
       id="descobertas"
-      aria-labelledby="discoveries-title">
+    >
 
       <div class="section-heading reveal">
 
@@ -147,75 +243,72 @@
             O QUE DESCOBRIMOS
           </div>
 
-          <h2 id="discoveries-title">
-            Duas ideias que fizeram<br>
+          <h2>
+            Duas ideias que fizeram
             <em>a diferença</em>
           </h2>
 
         </div>
 
         <p>
-          As descobertas representam momentos em que o grupo
-          percebeu algo novo e transformou essa percepção
-          em uma melhoria concreta.
+          As descobertas representam momentos em que
+          o grupo percebeu algo novo e transformou
+          essa percepção em uma melhoria concreta.
         </p>
 
       </div>
 
 
-      <div class="cards">
+      <div class="discovery-grid">
 
-        <!-- CARD 01 -->
-        <article
-          class="discovery-card cyan reveal"
-          data-discovery="1">
+        <!-- CARD 1 -->
+        <article class="discovery-card cyan-card reveal">
 
-          <div class="card-top">
-
-            <span class="number">
-              01
-            </span>
-
-            <span class="card-icon">
-              ⌕
-            </span>
-
+          <div class="card-number">
+            01
           </div>
 
-          <div class="card-illustration">
+          <div class="card-symbol">
+            ⌕
+          </div>
 
-            <span>◉</span>
+          <div class="card-art search-art">
 
-            <i></i>
-            <i></i>
-            <i></i>
+            <span class="search-ring ring-one"></span>
+            <span class="search-ring ring-two"></span>
+            <span class="search-ring ring-three"></span>
+
+            <span class="lens"></span>
+
+            <span class="node node-one"></span>
+            <span class="node node-two"></span>
+            <span class="node node-three"></span>
 
           </div>
 
           <div class="card-content">
 
-            <p class="card-kicker">
+            <span class="card-category">
               NOVO APRENDIZADO
-            </p>
+            </span>
 
             <h3>
               Entendemos melhor o problema
             </h3>
 
             <p>
-              Ao pesquisar mais profundamente,
-              percebemos que a situação era mais
-              complexa do que imaginávamos no início.
+              Ao pesquisar mais profundamente, percebemos
+              que o problema era mais complexo do que
+              imaginávamos no início.
             </p>
 
             <button
-              class="text-button open-modal"
+              class="card-link"
               type="button"
-              data-id="1">
-
+              data-discovery="1"
+            >
               Ver descoberta
               <span>↗</span>
-
             </button>
 
           </div>
@@ -223,38 +316,41 @@
         </article>
 
 
-        <!-- CARD 02 -->
-        <article
-          class="discovery-card violet reveal delay-1"
-          data-discovery="2">
+        <!-- CARD 2 -->
+        <article class="discovery-card violet-card reveal delay">
 
-          <div class="card-top">
+          <div class="card-number">
+            02
+          </div>
 
-            <span class="number">
-              02
-            </span>
+          <div class="card-symbol">
+            ↻
+          </div>
 
-            <span class="card-icon">
+          <div class="card-art change-art">
+
+            <span class="change-ring change-one"></span>
+            <span class="change-ring change-two"></span>
+
+            <span class="change-arrow">
               ↻
             </span>
 
-          </div>
+            <span class="spark spark-one">
+              ✦
+            </span>
 
-          <div class="card-illustration">
-
-            <span>✦</span>
-
-            <i></i>
-            <i></i>
-            <i></i>
+            <span class="spark spark-two">
+              ✦
+            </span>
 
           </div>
 
           <div class="card-content">
 
-            <p class="card-kicker">
+            <span class="card-category">
               MUDANÇA DE PERSPECTIVA
-            </p>
+            </span>
 
             <h3>
               Nossa solução evoluiu
@@ -267,13 +363,12 @@
             </p>
 
             <button
-              class="text-button open-modal"
+              class="card-link"
               type="button"
-              data-id="2">
-
+              data-discovery="2"
+            >
               Ver descoberta
               <span>↗</span>
-
             </button>
 
           </div>
@@ -282,29 +377,24 @@
 
       </div>
 
-    </section>
 
-
-    <!-- IMPACTO -->
-    <section class="impact section-shell">
-
+      <!-- IMPACTO -->
       <div class="impact-box reveal">
 
         <div class="impact-icon">
           ✦
         </div>
 
-        <div>
+        <div class="impact-content">
 
-          <div class="eyebrow">
-            <span></span>
+          <span>
             IMPACTO NO PROJETO
-          </div>
+          </span>
 
-          <h2>
+          <h3>
             Descobrir também é
-            <em>melhorar</em>.
-          </h2>
+            <em>melhorar.</em>
+          </h3>
 
           <p>
             Quando uma nova percepção aparece,
@@ -314,7 +404,7 @@
 
         </div>
 
-        <div class="impact-points">
+        <div class="impact-tags">
 
           <span>Pesquisa</span>
           <span>Reflexão</span>
@@ -330,9 +420,9 @@
 
     <!-- PROCESSO -->
     <section
-      class="process section-shell"
+      class="section process"
       id="processo"
-      aria-labelledby="process-title">
+    >
 
       <div class="section-heading reveal">
 
@@ -343,7 +433,7 @@
             CAMINHO PERCORRIDO
           </div>
 
-          <h2 id="process-title">
+          <h2>
             Como as descobertas
             <em>apareceram</em>
           </h2>
@@ -358,19 +448,20 @@
       </div>
 
 
-      <div class="timeline">
+      <div class="timeline reveal">
 
         <button
-          class="timeline-item active reveal"
+          class="timeline-step active"
+          data-step="0"
           type="button"
-          data-step="0">
+        >
 
-          <span class="timeline-dot">
+          <span class="step-number">
             01
           </span>
 
           <span>
-            <b>Investigar</b>
+            <strong>Investigar</strong>
             <small>Pesquisar e compreender</small>
           </span>
 
@@ -378,34 +469,36 @@
 
 
         <button
-          class="timeline-item reveal delay-1"
+          class="timeline-step"
+          data-step="1"
           type="button"
-          data-step="1">
+        >
 
-          <span class="timeline-dot">
+          <span class="step-number">
             02
           </span>
 
           <span>
-            <b>Questionar</b>
-            <small>Perceber novas possibilidades</small>
+            <strong>Questionar</strong>
+            <small>Perceber possibilidades</small>
           </span>
 
         </button>
 
 
         <button
-          class="timeline-item reveal delay-2"
+          class="timeline-step"
+          data-step="2"
           type="button"
-          data-step="2">
+        >
 
-          <span class="timeline-dot">
+          <span class="step-number">
             03
           </span>
 
           <span>
-            <b>Transformar</b>
-            <small>Aplicar e melhorar a solução</small>
+            <strong>Transformar</strong>
+            <small>Aplicar e melhorar</small>
           </span>
 
         </button>
@@ -414,23 +507,31 @@
 
 
       <div
-        class="process-detail"
-        id="processDetail"
-        aria-live="polite">
+        class="process-panel reveal"
+        id="processPanel"
+      >
 
-        <span class="detail-label">
-          ETAPA 01
-        </span>
+        <div class="process-icon">
+          01
+        </div>
 
-        <h3>
-          Investigar antes de concluir
-        </h3>
+        <div>
 
-        <p>
-          O grupo reuniu informações, comparou ideias
-          e percebeu que compreender bem o problema
-          era essencial para criar uma solução mais coerente.
-        </p>
+          <span class="panel-category">
+            ETAPA 01
+          </span>
+
+          <h3>
+            Investigar antes de concluir
+          </h3>
+
+          <p>
+            O grupo reuniu informações, comparou ideias
+            e percebeu que compreender bem o problema
+            era essencial para criar uma solução mais coerente.
+          </p>
+
+        </div>
 
       </div>
 
@@ -439,20 +540,20 @@
 
     <!-- REFLEXÃO -->
     <section
-      class="reflection section-shell"
+      class="section reflection"
       id="reflexao"
-      aria-labelledby="reflection-title">
+    >
 
-      <div class="reflection-panel reveal">
+      <div class="reflection-container reveal">
 
-        <div class="reflection-copy">
+        <div class="reflection-text">
 
           <div class="eyebrow">
             <span></span>
             REGISTRO DO GRUPO
           </div>
 
-          <h2 id="reflection-title">
+          <h2>
             E quais foram
             <em>as nossas</em>
             descobertas?
@@ -460,8 +561,8 @@
 
           <p>
             Escreva abaixo as duas descobertas reais
-            do grupo. O texto fica salvo neste navegador
-            para vocês poderem revisar depois.
+            do grupo. O conteúdo fica salvo neste
+            navegador para vocês revisarem depois.
           </p>
 
           <div class="tip">
@@ -480,7 +581,8 @@
 
         <form
           class="reflection-form"
-          id="reflectionForm">
+          id="reflectionForm"
+        >
 
           <label for="discoveryOne">
             Descoberta 01
@@ -489,10 +591,11 @@
           <textarea
             id="discoveryOne"
             maxlength="500"
+            required
             placeholder="Ex.: Descobrimos que..."
-            required></textarea>
+          ></textarea>
 
-          <div class="field-meta">
+          <div class="counter">
 
             <span>
               Conte o que vocês aprenderam.
@@ -512,10 +615,11 @@
           <textarea
             id="discoveryTwo"
             maxlength="500"
+            required
             placeholder="Ex.: Percebemos que nossa solução poderia..."
-            required></textarea>
+          ></textarea>
 
-          <div class="field-meta">
+          <div class="counter">
 
             <span>
               Explique o que mudou.
@@ -528,33 +632,31 @@
           </div>
 
 
-          <div class="form-actions">
+          <div class="form-buttons">
 
             <button
-              class="button button-primary"
-              type="submit">
-
+              class="button primary-button"
+              type="submit"
+            >
               Salvar reflexões
               <span>✓</span>
-
             </button>
 
             <button
-              class="button button-ghost"
-              id="clearReflection"
-              type="button">
-
+              class="button secondary-button"
+              id="clearButton"
+              type="button"
+            >
               Limpar
-
             </button>
 
           </div>
 
           <p
-            class="save-status"
-            id="saveStatus"
-            role="status"
-            aria-live="polite"></p>
+            class="save-message"
+            id="saveMessage"
+            aria-live="polite"
+          ></p>
 
         </form>
 
@@ -568,7 +670,7 @@
   <!-- RODAPÉ -->
   <footer class="footer">
 
-    <div class="section-shell footer-inner">
+    <div class="footer-container">
 
       <div>
 
@@ -583,15 +685,16 @@
       </div>
 
       <p>
-        Desenvolvido para registrar as descobertas do projeto.
+        Descobertas que transformam projetos
+        em experiências melhores.
       </p>
 
       <a
         href="#inicio"
-        aria-label="Voltar ao início">
-
+        class="back-top"
+        aria-label="Voltar ao início"
+      >
         ↑
-
       </a>
 
     </div>
@@ -606,11 +709,12 @@
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="modalTitle">
+  >
 
     <div
-      class="modal-backdrop"
-      data-close-modal></div>
+      class="modal-background"
+      data-close-modal
+    ></div>
 
     <div class="modal-card">
 
@@ -618,27 +722,24 @@
         class="modal-close"
         id="modalClose"
         type="button"
-        aria-label="Fechar">
-
+        aria-label="Fechar"
+      >
         ×
-
       </button>
 
       <span
         class="modal-number"
-        id="modalNumber">
-
+        id="modalNumber"
+      >
         01
-
       </span>
 
-      <p
-        class="card-kicker"
-        id="modalKicker">
-
+      <span
+        class="modal-category"
+        id="modalCategory"
+      >
         NOVO APRENDIZADO
-
-      </p>
+      </span>
 
       <h2 id="modalTitle">
         Entendemos melhor o problema
@@ -646,7 +747,7 @@
 
       <p id="modalText"></p>
 
-      <div class="modal-result">
+      <div class="modal-impact">
 
         <span>
           IMPACTO

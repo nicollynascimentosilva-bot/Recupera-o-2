@@ -1,865 +1,713 @@
-/* =========================================================
-   PROJETOLAB — SCRIPT PRINCIPAL
-   ========================================================= */
+(() => {
 
-'use strict';
-
-/* =========================================================
-   ELEMENTOS
-   ========================================================= */
-
-const body = document.body;
-
-const themeToggle = document.getElementById('themeToggle');
-const menuToggle = document.getElementById('menuToggle');
-const nav = document.querySelector('.nav');
-
-const modal = document.getElementById('modal');
-const modalClose = document.getElementById('modalClose');
-const modalTitle = document.getElementById('modalTitle');
-const modalText = document.getElementById('modalText');
-const modalNumber = document.getElementById('modalNumber');
-const modalKicker = document.getElementById('modalKicker');
-const modalImpact = document.getElementById('modalImpact');
-
-const processDetail = document.getElementById('processDetail');
-
-const reflectionForm = document.getElementById('reflectionForm');
-const discoveryOne = document.getElementById('discoveryOne');
-const discoveryTwo = document.getElementById('discoveryTwo');
-
-const countOne = document.getElementById('countOne');
-const countTwo = document.getElementById('countTwo');
-
-const saveStatus = document.getElementById('saveStatus');
-const clearReflection = document.getElementById('clearReflection');
+  "use strict";
 
 
-/* =========================================================
-   DADOS DAS DESCOBERTAS
-   ========================================================= */
+  /* ========================================
+     SELETORES
+  ======================================== */
 
-const discoveries = {
-  1: {
-    number: '01',
-    kicker: 'NOVO APRENDIZADO',
-    title: 'Entendemos melhor o problema',
-    text:
-      'Durante a pesquisa e o desenvolvimento, percebemos que o problema investigado possuía mais aspectos do que imaginávamos inicialmente. Essa descoberta fez com que o grupo pesquisasse melhor, comparasse informações e pensasse com mais cuidado antes de definir a solução.',
-    impact:
-      'A pesquisa passou a orientar melhor as decisões do projeto.'
-  },
+  const $ = (
+    selector,
+    parent = document
+  ) => parent.querySelector(selector);
 
-  2: {
-    number: '02',
-    kicker: 'MUDANÇA DE PERSPECTIVA',
-    title: 'Nossa solução evoluiu',
-    text:
-      'Ao testar ideias e conversar sobre os resultados, percebemos que a primeira proposta poderia ser melhorada. O grupo passou a considerar novas possibilidades e modificou alguns pontos para tornar a solução mais adequada ao problema.',
-    impact:
-      'A solução final ficou mais coerente com as necessidades identificadas.'
-  }
-};
+  const $$ = (
+    selector,
+    parent = document
+  ) => [...parent.querySelectorAll(selector)];
 
 
-/* =========================================================
-   DADOS DA TIMELINE
-   ========================================================= */
+  const body = document.body;
 
-const processSteps = [
-  {
-    label: 'ETAPA 01',
-    title: 'Investigar antes de concluir',
-    text:
-      'O grupo reuniu informações, comparou ideias e percebeu que compreender bem o problema era essencial para criar uma solução mais coerente.'
-  },
+  const themeButton =
+    $("#themeButton");
 
-  {
-    label: 'ETAPA 02',
-    title: 'Questionar o que já tínhamos pensado',
-    text:
-      'Durante as conversas e análises, novas perguntas apareceram. Isso ajudou o grupo a perceber possibilidades que não estavam presentes na ideia inicial.'
-  },
+  const menuButton =
+    $("#menuButton");
 
-  {
-    label: 'ETAPA 03',
-    title: 'Transformar percepção em melhoria',
-    text:
-      'As novas descobertas foram utilizadas para ajustar o projeto. Assim, o processo deixou de ser apenas uma execução e passou a ser uma evolução contínua.'
-  }
-];
+  const mobileNavigation =
+    $("#mobileNavigation");
 
 
-/* =========================================================
-   TEMA CLARO / ESCURO
-   ========================================================= */
+  /* ========================================
+     TEMA
+  ======================================== */
 
-function updateThemeButton() {
-  if (!themeToggle) return;
+  function applyTheme(theme) {
 
-  const isLight = body.classList.contains('light');
+    const isLight =
+      theme === "light";
 
-  themeToggle.textContent = isLight ? '☀' : '☾';
+    body.classList.toggle(
+      "light",
+      isLight
+    );
 
-  themeToggle.setAttribute(
-    'aria-label',
-    isLight
-      ? 'Ativar tema escuro'
-      : 'Ativar tema claro'
-  );
+    if (themeButton) {
 
-  themeToggle.setAttribute(
-    'title',
-    isLight
-      ? 'Ativar tema escuro'
-      : 'Ativar tema claro'
-  );
-}
+      themeButton.textContent =
+        isLight
+          ? "☀"
+          : "☾";
 
-
-function loadTheme() {
-  try {
-    const savedTheme = localStorage.getItem('projetolab-theme');
-
-    if (savedTheme === 'light') {
-      body.classList.add('light');
-    } else {
-      body.classList.remove('light');
+      themeButton.setAttribute(
+        "aria-label",
+        isLight
+          ? "Ativar tema escuro"
+          : "Ativar tema claro"
+      );
     }
-  } catch (error) {
-    console.warn(
-      'Não foi possível carregar o tema salvo.',
-      error
-    );
   }
 
-  updateThemeButton();
-}
 
-
-function toggleTheme() {
-  const isLight = body.classList.toggle('light');
-
-  try {
-    localStorage.setItem(
-      'projetolab-theme',
-      isLight ? 'light' : 'dark'
-    );
-  } catch (error) {
-    console.warn(
-      'Não foi possível salvar o tema.',
-      error
-    );
-  }
-
-  updateThemeButton();
-}
-
-
-if (themeToggle) {
-  themeToggle.addEventListener(
-    'click',
-    toggleTheme
-  );
-}
-
-loadTheme();
-
-
-/* =========================================================
-   MENU MOBILE
-   ========================================================= */
-
-function closeMenu() {
-  if (!nav || !menuToggle) return;
-
-  nav.classList.remove('open');
-
-  menuToggle.setAttribute(
-    'aria-expanded',
-    'false'
-  );
-}
-
-
-function toggleMenu() {
-  if (!nav || !menuToggle) return;
-
-  const isOpen =
-    nav.classList.toggle('open');
-
-  menuToggle.setAttribute(
-    'aria-expanded',
-    String(isOpen)
-  );
-}
-
-
-if (menuToggle) {
-  menuToggle.addEventListener(
-    'click',
-    toggleMenu
-  );
-}
-
-
-if (nav) {
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener(
-      'click',
-      closeMenu
-    );
-  });
-}
-
-
-/* =========================================================
-   ANIMAÇÃO DOS ELEMENTOS AO ROLAR
-   ========================================================= */
-
-const revealElements =
-  document.querySelectorAll('.reveal');
-
-
-function revealOnScroll() {
-
-  const windowHeight =
-    window.innerHeight;
-
-  revealElements.forEach(element => {
-
-    const elementTop =
-      element.getBoundingClientRect().top;
-
-    const visible =
-      elementTop <
-      windowHeight - 70;
-
-    if (visible) {
-      element.classList.add('visible');
-    }
-
-  });
-}
-
-
-if ('IntersectionObserver' in window) {
-
-  const observer =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (entry.isIntersecting) {
-
-            entry.target.classList.add(
-              'visible'
-            );
-
-            observer.unobserve(
-              entry.target
-            );
-          }
-
-        });
-
-      },
-      {
-        threshold: 0.12
-      }
+  const savedTheme =
+    localStorage.getItem(
+      "projetolab-theme"
     );
 
-  revealElements.forEach(element => {
-    observer.observe(element);
-  });
 
-} else {
-
-  window.addEventListener(
-    'scroll',
-    revealOnScroll
+  applyTheme(
+    savedTheme === "light"
+      ? "light"
+      : "dark"
   );
 
-  revealOnScroll();
-}
 
+  if (themeButton) {
 
-/* =========================================================
-   MODAL DAS DESCOBERTAS
-   ========================================================= */
-
-let lastFocusedElement = null;
-
-
-function openModal(id) {
-
-  const discovery =
-    discoveries[id];
-
-  if (!discovery || !modal) return;
-
-  lastFocusedElement =
-    document.activeElement;
-
-  modalNumber.textContent =
-    discovery.number;
-
-  modalKicker.textContent =
-    discovery.kicker;
-
-  modalTitle.textContent =
-    discovery.title;
-
-  modalText.textContent =
-    discovery.text;
-
-  modalImpact.textContent =
-    discovery.impact;
-
-  modal.classList.add('open');
-
-  modal.setAttribute(
-    'aria-hidden',
-    'false'
-  );
-
-  body.style.overflow = 'hidden';
-
-  if (modalClose) {
-    modalClose.focus();
-  }
-}
-
-
-function closeModal() {
-
-  if (!modal) return;
-
-  modal.classList.remove('open');
-
-  modal.setAttribute(
-    'aria-hidden',
-    'true'
-  );
-
-  body.style.overflow = '';
-
-  if (
-    lastFocusedElement &&
-    typeof lastFocusedElement.focus === 'function'
-  ) {
-    lastFocusedElement.focus();
-  }
-}
-
-
-document
-  .querySelectorAll('.open-modal')
-  .forEach(button => {
-
-    button.addEventListener(
-      'click',
+    themeButton.addEventListener(
+      "click",
       () => {
 
-        const id =
-          button.dataset.id;
+        const nextTheme =
+          body.classList.contains("light")
+            ? "dark"
+            : "light";
 
-        openModal(id);
+        applyTheme(nextTheme);
+
+        localStorage.setItem(
+          "projetolab-theme",
+          nextTheme
+        );
+
       }
     );
 
-  });
+  }
 
 
-if (modalClose) {
-  modalClose.addEventListener(
-    'click',
-    closeModal
-  );
-}
+  /* ========================================
+     MENU MOBILE
+  ======================================== */
 
+  function closeMobileMenu() {
 
-document
-  .querySelectorAll('[data-close-modal]')
-  .forEach(element => {
-
-    element.addEventListener(
-      'click',
-      closeModal
-    );
-
-  });
-
-
-document.addEventListener(
-  'keydown',
-  event => {
-
-    if (
-      event.key === 'Escape' &&
-      modal &&
-      modal.classList.contains('open')
-    ) {
-      closeModal();
+    if (!mobileNavigation) {
+      return;
     }
 
-  }
-);
-
-
-/* =========================================================
-   TIMELINE INTERATIVA
-   ========================================================= */
-
-const timelineItems =
-  document.querySelectorAll(
-    '.timeline-item'
-  );
-
-
-function updateProcess(step) {
-
-  const data =
-    processSteps[step];
-
-  if (!data || !processDetail) {
-    return;
-  }
-
-  const label =
-    processDetail.querySelector(
-      '.detail-label'
+    mobileNavigation.classList.remove(
+      "open"
     );
 
-  const title =
-    processDetail.querySelector('h3');
+    if (menuButton) {
 
-  const text =
-    processDetail.querySelector('p');
-
-  if (label) {
-    label.textContent =
-      data.label;
-  }
-
-  if (title) {
-    title.textContent =
-      data.title;
-  }
-
-  if (text) {
-    text.textContent =
-      data.text;
-  }
-
-  timelineItems.forEach(
-    (item, index) => {
-
-      item.classList.toggle(
-        'active',
-        index === step
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
       );
 
     }
-  );
-}
+
+  }
 
 
-timelineItems.forEach(
-  (item, index) => {
+  if (menuButton) {
 
-    item.addEventListener(
-      'click',
+    menuButton.addEventListener(
+      "click",
       () => {
-        updateProcess(index);
+
+        const opened =
+          mobileNavigation.classList.toggle(
+            "open"
+          );
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          String(opened)
+        );
+
       }
     );
 
   }
-);
 
 
-/* =========================================================
-   CONTADOR DE CARACTERES
-   ========================================================= */
+  $$(".mobile-navigation a")
+    .forEach(link => {
 
-function updateCounter(
-  textarea,
-  counter
-) {
+      link.addEventListener(
+        "click",
+        closeMobileMenu
+      );
 
-  if (!textarea || !counter) {
-    return;
-  }
+    });
 
-  const length =
-    textarea.value.length;
 
-  const maximum =
-    textarea.maxLength;
+  window.addEventListener(
+    "resize",
+    () => {
 
-  counter.textContent =
-    `${length}/${maximum}`;
+      if (window.innerWidth > 900) {
 
-  if (length >= maximum * 0.9) {
+        closeMobileMenu();
 
-    counter.style.color =
-      '#ff4fd8';
+      }
+
+    }
+  );
+
+
+  /* ========================================
+     ANIMAÇÃO AO ROLAR
+  ======================================== */
+
+  const revealElements =
+    $$(".reveal");
+
+
+  if (
+    "IntersectionObserver"
+    in window
+  ) {
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach(
+      element =>
+        observer.observe(element)
+    );
 
   } else {
 
-    counter.style.color =
-      '';
-  }
-}
-
-
-if (discoveryOne) {
-
-  discoveryOne.addEventListener(
-    'input',
-    () => {
-      updateCounter(
-        discoveryOne,
-        countOne
-      );
-    }
-  );
-
-}
-
-
-if (discoveryTwo) {
-
-  discoveryTwo.addEventListener(
-    'input',
-    () => {
-      updateCounter(
-        discoveryTwo,
-        countTwo
-      );
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SALVAR REFLEXÕES
-   ========================================================= */
-
-const STORAGE_KEY =
-  'projetolab-reflexoes';
-
-
-function showStatus(
-  message,
-  success = true
-) {
-
-  if (!saveStatus) return;
-
-  saveStatus.textContent =
-    message;
-
-  saveStatus.style.color =
-    success
-      ? ''
-      : '#ff4fd8';
-
-  window.clearTimeout(
-    showStatus.timeout
-  );
-
-  showStatus.timeout =
-    window.setTimeout(
-      () => {
-
-        saveStatus.textContent =
-          '';
-
-      },
-      4000
+    revealElements.forEach(
+      element =>
+        element.classList.add(
+          "visible"
+        )
     );
-}
 
-
-function saveReflections() {
-
-  if (!discoveryOne || !discoveryTwo) {
-    return;
   }
 
-  const data = {
-    discoveryOne:
-      discoveryOne.value.trim(),
 
-    discoveryTwo:
-      discoveryTwo.value.trim(),
+  /* ========================================
+     MODAL DAS DESCOBERTAS
+  ======================================== */
 
-    savedAt:
-      new Date().toISOString()
+  const modal =
+    $("#modal");
+
+  const modalClose =
+    $("#modalClose");
+
+  const modalNumber =
+    $("#modalNumber");
+
+  const modalCategory =
+    $("#modalCategory");
+
+  const modalTitle =
+    $("#modalTitle");
+
+  const modalText =
+    $("#modalText");
+
+  const modalImpact =
+    $("#modalImpact");
+
+
+  const discoveries = {
+
+    1: {
+
+      number: "01",
+
+      category:
+        "NOVO APRENDIZADO",
+
+      title:
+        "Entendemos melhor o problema",
+
+      text:
+        "Durante a pesquisa e o desenvolvimento, percebemos que o problema investigado possuía mais aspectos do que imaginávamos inicialmente. Essa descoberta fez com que o grupo pesquisasse melhor, comparasse informações e pensasse com mais cuidado antes de definir a solução.",
+
+      impact:
+        "A pesquisa passou a orientar melhor as decisões do projeto."
+
+    },
+
+
+    2: {
+
+      number: "02",
+
+      category:
+        "MUDANÇA DE PERSPECTIVA",
+
+      title:
+        "Nossa solução evoluiu",
+
+      text:
+        "Ao testar ideias e conversar sobre os resultados, percebemos que a primeira proposta poderia ser melhorada. O grupo passou a considerar novas possibilidades e modificou pontos importantes para tornar a solução mais adequada ao problema.",
+
+      impact:
+        "A solução final ficou mais coerente com as necessidades identificadas."
+
+    }
+
   };
 
-  try {
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(data)
-    );
-
-    showStatus(
-      '✓ Reflexões salvas neste navegador.'
-    );
-
-  } catch (error) {
-
-    showStatus(
-      'Não foi possível salvar as reflexões.',
-      false
-    );
-
-    console.error(
-      'Erro ao salvar:',
-      error
-    );
-  }
-}
+  let lastFocusedElement = null;
 
 
-/* =========================================================
-   CARREGAR REFLEXÕES
-   ========================================================= */
+  function openModal(id) {
 
-function loadReflections() {
-
-  try {
-
-    const saved =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
-
-    if (!saved) return;
-
-    const data =
-      JSON.parse(saved);
+    const discovery =
+      discoveries[id];
 
     if (
-      data &&
-      typeof data === 'object'
-    ) {
-
-      if (
-        discoveryOne &&
-        typeof data.discoveryOne === 'string'
-      ) {
-
-        discoveryOne.value =
-          data.discoveryOne;
-
-      }
-
-      if (
-        discoveryTwo &&
-        typeof data.discoveryTwo === 'string'
-      ) {
-
-        discoveryTwo.value =
-          data.discoveryTwo;
-
-      }
-
-    }
-
-  } catch (error) {
-
-    console.warn(
-      'Não foi possível carregar as reflexões salvas.',
-      error
-    );
-
-  }
-
-  updateCounter(
-    discoveryOne,
-    countOne
-  );
-
-  updateCounter(
-    discoveryTwo,
-    countTwo
-  );
-}
-
-
-loadReflections();
-
-
-/* =========================================================
-   FORMULÁRIO
-   ========================================================= */
-
-if (reflectionForm) {
-
-  reflectionForm.addEventListener(
-    'submit',
-    event => {
-
-      event.preventDefault();
-
-      if (!reflectionForm.checkValidity()) {
-
-        reflectionForm.reportValidity();
-
-        showStatus(
-          'Preencha as duas descobertas antes de salvar.',
-          false
-        );
-
-        return;
-      }
-
-      saveReflections();
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   LIMPAR REFLEXÕES
-   ========================================================= */
-
-if (clearReflection) {
-
-  clearReflection.addEventListener(
-    'click',
-    () => {
-
-      if (discoveryOne) {
-        discoveryOne.value = '';
-      }
-
-      if (discoveryTwo) {
-        discoveryTwo.value = '';
-      }
-
-      updateCounter(
-        discoveryOne,
-        countOne
-      );
-
-      updateCounter(
-        discoveryTwo,
-        countTwo
-      );
-
-      try {
-
-        localStorage.removeItem(
-          STORAGE_KEY
-        );
-
-      } catch (error) {
-
-        console.warn(
-          'Não foi possível remover os dados salvos.',
-          error
-        );
-
-      }
-
-      showStatus(
-        'Reflexões apagadas.'
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   FECHAR MENU AO CLICAR FORA
-   ========================================================= */
-
-document.addEventListener(
-  'click',
-  event => {
-
-    if (
-      !nav ||
-      !menuToggle ||
-      !nav.classList.contains('open')
+      !discovery ||
+      !modal
     ) {
       return;
     }
 
-    const clickedInsideMenu =
-      nav.contains(event.target);
 
-    const clickedButton =
-      menuToggle.contains(event.target);
+    lastFocusedElement =
+      document.activeElement;
+
+
+    modalNumber.textContent =
+      discovery.number;
+
+    modalCategory.textContent =
+      discovery.category;
+
+    modalTitle.textContent =
+      discovery.title;
+
+    modalText.textContent =
+      discovery.text;
+
+    modalImpact.textContent =
+      discovery.impact;
+
+
+    modal.classList.add(
+      "open"
+    );
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    body.style.overflow =
+      "hidden";
+
+
+    modalClose?.focus();
+
+  }
+
+
+  function closeModal() {
+
+    if (!modal) {
+      return;
+    }
+
+
+    modal.classList.remove(
+      "open"
+    );
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    body.style.overflow =
+      "";
+
 
     if (
-      !clickedInsideMenu &&
-      !clickedButton
+      lastFocusedElement &&
+      typeof lastFocusedElement.focus
+        === "function"
     ) {
-      closeMenu();
+
+      lastFocusedElement.focus();
+
     }
 
   }
-);
 
 
-/* =========================================================
-   ESC FECHA MENU MOBILE
-   ========================================================= */
+  $$("[data-discovery]")
+    .forEach(button => {
 
-document.addEventListener(
-  'keydown',
-  event => {
+      button.addEventListener(
+        "click",
+        () => {
 
-    if (
-      event.key === 'Escape' &&
-      nav &&
-      nav.classList.contains('open')
-    ) {
-      closeMenu();
+          const id =
+            Number(
+              button.dataset.discovery
+            );
+
+          openModal(id);
+
+        }
+      );
+
+    });
+
+
+  modalClose?.addEventListener(
+    "click",
+    closeModal
+  );
+
+
+  $$("[data-close-modal]")
+    .forEach(element => {
+
+      element.addEventListener(
+        "click",
+        closeModal
+      );
+
+    });
+
+
+  /* ========================================
+     TIMELINE
+  ======================================== */
+
+  const timelineSteps =
+    $$(".timeline-step");
+
+  const processPanel =
+    $("#processPanel");
+
+
+  const processData = [
+
+    {
+
+      category:
+        "ETAPA 01",
+
+      title:
+        "Investigar antes de concluir",
+
+      text:
+        "O grupo reuniu informações, comparou ideias e percebeu que compreender bem o problema era essencial para criar uma solução mais coerente."
+
+    },
+
+
+    {
+
+      category:
+        "ETAPA 02",
+
+      title:
+        "Questionar o que já tínhamos pensado",
+
+      text:
+        "Durante as conversas e análises, novas perguntas apareceram. Isso ajudou o grupo a perceber possibilidades que não estavam presentes na ideia inicial."
+
+    },
+
+
+    {
+
+      category:
+        "ETAPA 03",
+
+      title:
+        "Transformar percepção em melhoria",
+
+      text:
+        "As novas descobertas foram utilizadas para ajustar o projeto. Assim, o processo deixou de ser apenas uma execução e passou a ser uma evolução contínua."
+
     }
 
-  }
-);
+  ];
 
 
-/* =========================================================
-   FECHAR MENU QUANDO A TELA VOLTAR AO DESKTOP
-   ========================================================= */
+  function updateProcess(index) {
 
-window.addEventListener(
-  'resize',
-  () => {
+    const data =
+      processData[index];
 
     if (
-      window.innerWidth > 900
+      !data ||
+      !processPanel
     ) {
-      closeMenu();
+      return;
     }
 
+
+    $(".panel-category", processPanel)
+      .textContent =
+      data.category;
+
+
+    $("h3", processPanel)
+      .textContent =
+      data.title;
+
+
+    $("p", processPanel)
+      .textContent =
+      data.text;
+
+
+    $(".process-icon", processPanel)
+      .textContent =
+      String(index + 1)
+        .padStart(2, "0");
+
+
+    timelineSteps.forEach(
+      (step, stepIndex) => {
+
+        step.classList.toggle(
+          "active",
+          stepIndex === index
+        );
+
+      }
+    );
+
   }
-);
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-   ========================================================= */
+  timelineSteps.forEach(
+    step => {
 
-document.addEventListener(
-  'DOMContentLoaded',
-  () => {
+      step.addEventListener(
+        "click",
+        () => {
+
+          updateProcess(
+            Number(
+              step.dataset.step
+            )
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* ========================================
+     CONTADORES
+  ======================================== */
+
+  const discoveryOne =
+    $("#discoveryOne");
+
+  const discoveryTwo =
+    $("#discoveryTwo");
+
+  const countOne =
+    $("#countOne");
+
+  const countTwo =
+    $("#countTwo");
+
+
+  function updateCounter(
+    field,
+    counter
+  ) {
+
+    if (
+      !field ||
+      !counter
+    ) {
+      return;
+    }
+
+
+    counter.textContent =
+      `${field.value.length}/${field.maxLength}`;
+
+  }
+
+
+  discoveryOne?.addEventListener(
+    "input",
+    () =>
+      updateCounter(
+        discoveryOne,
+        countOne
+      )
+  );
+
+
+  discoveryTwo?.addEventListener(
+    "input",
+    () =>
+      updateCounter(
+        discoveryTwo,
+        countTwo
+      )
+  );
+
+
+  /* ========================================
+     FORMULÁRIO
+  ======================================== */
+
+  const reflectionForm =
+    $("#reflectionForm");
+
+  const clearButton =
+    $("#clearButton");
+
+  const saveMessage =
+    $("#saveMessage");
+
+
+  const STORAGE_KEY =
+    "projetolab-reflexoes";
+
+
+  function showMessage(
+    message,
+    error = false
+  ) {
+
+    if (!saveMessage) {
+      return;
+    }
+
+
+    saveMessage.textContent =
+      message;
+
+
+    saveMessage.style.color =
+      error
+        ? "#ff4fd8"
+        : "";
+
+
+    clearTimeout(
+      showMessage.timer
+    );
+
+
+    showMessage.timer =
+      setTimeout(
+        () => {
+
+          saveMessage.textContent =
+            "";
+
+        },
+        4000
+      );
+
+  }
+
+
+  function loadReflections() {
+
+    try {
+
+      const saved =
+        JSON.parse(
+          localStorage.getItem(
+            STORAGE_KEY
+          ) || "null"
+        );
+
+
+      if (saved) {
+
+        if (
+          typeof saved.one
+          === "string"
+        ) {
+
+          discoveryOne.value =
+            saved.one;
+
+        }
+
+
+        if (
+          typeof saved.two
+          === "string"
+        ) {
+
+          discoveryTwo.value =
+            saved.two;
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        "Não foi possível carregar as reflexões.",
+        error
+      );
+
+    }
+
 
     updateCounter(
       discoveryOne,
@@ -871,7 +719,141 @@ document.addEventListener(
       countTwo
     );
 
-    updateProcess(0);
-
   }
-);
+
+
+  reflectionForm?.addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+
+      if (
+        !reflectionForm.checkValidity()
+      ) {
+
+        reflectionForm.reportValidity();
+
+        showMessage(
+          "Preencha as duas descobertas antes de salvar.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+
+            one:
+              discoveryOne.value.trim(),
+
+            two:
+              discoveryTwo.value.trim(),
+
+            savedAt:
+              new Date().toISOString()
+
+          })
+        );
+
+
+        showMessage(
+          "✓ Reflexões salvas neste navegador."
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          "Não foi possível salvar as reflexões.",
+          true
+        );
+
+      }
+
+    }
+  );
+
+
+  clearButton?.addEventListener(
+    "click",
+    () => {
+
+      discoveryOne.value =
+        "";
+
+      discoveryTwo.value =
+        "";
+
+
+      updateCounter(
+        discoveryOne,
+        countOne
+      );
+
+      updateCounter(
+        discoveryTwo,
+        countTwo
+      );
+
+
+      try {
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+      } catch (error) {
+
+        console.warn(error);
+
+      }
+
+
+      showMessage(
+        "Reflexões apagadas."
+      );
+
+    }
+  );
+
+
+  /* ========================================
+     TECLADO
+  ======================================== */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeModal();
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
+
+  /* ========================================
+     INICIALIZAÇÃO
+  ======================================== */
+
+  updateProcess(0);
+
+  loadReflections();
+
+})();

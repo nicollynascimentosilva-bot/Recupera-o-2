@@ -4,198 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArcadeVerse | Jogos que Ensinam, Diversão que Transforma!</title>
-    <!-- Fontes do Google para reproduzir a tipografia Gamer e Tech -->
+    <!-- Importação segura e de alta fidelidade das fontes gamer do Google -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Link de conexão com o arquivo CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode">
+<body class="cyberpunk-theme">
 
-    <!-- Link de Acessibilidade Oculto (Acessível via tecla TAB para nota máxima em acessibilidade) -->
-    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- BARRA DE NAVEGAÇÃO -->
-    <header class="app-header">
-        <div class="header-container">
-            <div class="app-logo">
-                <span class="logo-icon">🎮</span>
-                <div class="logo-text">
-                    <h1>ARCADEVERSE</h1>
-                    <p>JOGOS QUE ENSINAM, DIVERSÃO QUE TRANSFORMA!</p>
+    <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-logo">🎮</div>
+                <div class="brand-text">
+                    <span class="logo-title">ARCADEVERSE</span>
+                    <span class="logo-sub">JOGOS QUE ENSINAM, DIVERSÃO QUE TRANSFORMA!</span>
                 </div>
             </div>
-            
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#home" class="active">INÍCIO</a></li>
-                    <li><a href="#jogos">JOGOS</a></li>
-                    <li><a href="#ciencia">CIÊNCIA</a></li>
-                    <li><a href="#desenvolvimento">DESENVOLVIMENTO</a></li>
-                    <li><a href="#avaliacao">AVALIAÇÃO</a></li>
-                    <li><a href="#sobre">SOBRE</a></li>
-                </ul>
-                <div class="theme-toggle-zone" aria-label="Modo escuro ativo">
-                    <span class="moon-icon">🌙</span>
-                </div>
+            <nav class="nav-links">
+                <a href="#inicio" class="active">INÍCIO</a>
+                <a href="#jogos">JOGOS</a>
+                <a href="#ciencia">CIÊNCIA</a>
+                <a href="#desenvolvimento">DESENVOLVIMENTO</a>
+                <a href="#avaliacao">AVALIAÇÃO</a>
+                <a href="#sobre">SOBRE</a>
+                <button class="theme-toggle-btn" aria-label="Alternar Modo Escuro">🌙</button>
             </nav>
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL (GRID SUPERIOR) -->
-    <main class="main-container" id="conteudo-principal">
-        <div class="hero-grid">
+    <!-- GRID PRINCIPAL DA ARENA -->
+    <main class="arena-wrapper" id="inicio">
+        <div class="hero-layout">
             
-            <!-- COLUNA DA ESQUERDA: APRESENTAÇÃO -->
-            <section class="hero-intro" id="home">
-                <h2 class="main-title">APRENDER<br>NUNCA FOI<br>TÃO DIVERTIDO</h2>
-                <p class="main-description">
-                    ArcadeVerse é uma plataforma educacional onde a ciência e a tecnologia se encontram com jogos incríveis e interativos.
-                </p>
-                <button class="cta-explore-btn">
-                    EXPLORAR JOGOS <span class="arrow">&#10095;</span>
-                </button>
+            <!-- APRESENTAÇÃO TEXTUAL (ESQUERDA) -->
+            <section class="intro-block">
+                <h1 class="hero-title">APRENDER<br>NUNCA FOI<br>TÃO DIVERTIDO</h1>
+                <p class="hero-desc">ArcadeVerse é uma plataforma educacional onde a ciência e a tecnologia se encontram com jogos incríveis e interativos.</p>
+                <a href="#jogos" class="btn-explore">EXPLORAR JOGOS ❯</a>
             </section>
 
-            <!-- COLUNA DA DIREITA: OS 3 CARDS EM NEON -->
-            <section class="games-arena" id="jogos">
+            <!-- GRADE DE JOGOS COM REQUISITOS DE HOVER E SOMBRA (DIREITA) -->
+            <section class="cards-grid" id="jogos">
                 
                 <!-- CARD 1: NEON SNAKE -->
-                <article class="game-card card-emerald" data-game="snake" tabindex="0">
-                    <div class="card-header-game">
-                        <span class="card-icon-snake">🐍</span>
-                        <div>
-                            <h3>NEON SNAKE</h3>
-                            <p class="card-subtitle">Clássico da Cobrinha com um visual neon!</p>
+                <article class="arcade-card neon-green-border" data-game="snake">
+                    <div class="card-top">
+                        <div class="card-icon green-glow">🐍</div>
+                        <div class="card-headings">
+                            <h2>NEON SNAKE</h2>
+                            <p>Clássico da Cobrinha com um visual neon!</p>
                         </div>
                     </div>
-                    <!-- Imagem real de alta definição com Alt preenchido para acessibilidade -->
-                    <div class="card-preview-screen">
-                        <img src="https://unsplash.com" alt="Interface escura de linhas luminosas verdes simulando circuitos e cobras em neon" class="card-dynamic-img">
+                    <div class="display-screen snake-screen-bg">
+                        <div class="virtual-snake-path"></div>
+                        <div class="virtual-food"></div>
                     </div>
-                    <button class="play-card-btn" tabindex="-1">
-                        JOGAR AGORA <span class="btn-icon">🎮</span>
-                    </button>
+                    <button class="btn-play-card green-btn">JOGAR AGORA 🎮</button>
                 </article>
 
                 <!-- CARD 2: QUANTUM CLICKER -->
-                <article class="game-card card-blue" data-game="clicker" tabindex="0">
-                    <div class="card-header-game">
-                        <span class="card-icon-clicker">⚡</span>
-                        <div>
-                            <h3>QUANTUM CLICKER</h3>
-                            <p class="card-subtitle">Clique, evolua e descubra o power dos quarks!</p>
+                <article class="arcade-card neon-blue-border" data-game="clicker">
+                    <div class="card-top">
+                        <div class="card-icon blue-glow">⚡</div>
+                        <div class="card-headings">
+                            <h2>QUANTUM CLICKER</h2>
+                            <p>Clique, evolua e descubra o poder dos quarks!</p>
                         </div>
                     </div>
-                    <!-- Imagem real de alta definição para o Clicker Quântico -->
-                    <div class="card-preview-screen">
-                        <img src="https://unsplash.com" alt="Renderização abstrata tridimensional de esferas e partículas quânticas azuis brilhando no espaço" class="card-dynamic-img">
+                    <div class="display-screen clicker-screen-bg">
+                        <div class="quantum-waves"></div>
                     </div>
-                    <button class="play-card-btn" tabindex="-1">
-                        JOGAR AGORA <span class="btn-icon">🎮</span>
-                    </button>
+                    <button class="btn-play-card blue-btn">JOGAR AGORA 🎮</button>
                 </article>
 
                 <!-- CARD 3: TECH QUIZ ARENA -->
-                <article class="game-card card-purple" data-game="quiz" tabindex="0">
-                    <div class="card-header-game">
-                        <span class="card-icon-quiz">🏆</span>
-                        <div>
-                            <h3>TECH QUIZ ARENA</h3>
-                            <p class="card-subtitle">Teste seus conhecimentos em tecnologia e ciência!</p>
+                <article class="arcade-card neon-purple-border" data-game="quiz">
+                    <div class="card-top">
+                        <div class="card-icon purple-glow">🏆</div>
+                        <div class="card-headings">
+                            <h2>TECH QUIZ ARENA</h2>
+                            <p>Teste seus conhecimentos em tecnologia e ciência!</p>
                         </div>
                     </div>
-                    <!-- Imagem real de alta definição para o Quiz Acadêmico -->
-                    <div class="card-preview-screen">
-                        <img src="https://unsplash.com" alt="Glow roxo iluminando a silhueta de um troféu e controles de videogame retro" class="card-dynamic-img">
+                    <div class="display-screen quiz-screen-bg">
+                        <div class="trophy-vector">🏆</div>
                     </div>
-                    <button class="play-card-btn special-quiz-btn" tabindex="-1">
-                        COMEÇAR QUIZ <span class="btn-icon">❓</span>
-                    </button>
+                    <button class="btn-play-card purple-btn">COMEÇAR QUIZ ❓</button>
                 </article>
 
             </section>
         </div>
 
-        <!-- SEÇÃO INFERIOR: INFOGRÁFICOS DE 4 COLUNAS -->
-        <div class="info-footer-grid">
+        <!-- SEÇÃO INFERIOR EM 4 COLUNAS EXATAS COMO O SEU PROTÓTIPO -->
+        <div class="dashboard-grid" id="sobre">
             
-            <!-- COLUNA 1: SOBRE COM IMAGEM DO GAMER EM SETUP NEON -->
-            <div class="info-column about-box" id="sobre">
-                <h4 class="column-title"><span class="purple-dot">👾</span> SOBRE O ARCADEVERSE</h4>
-                <p class="column-text">
-                    Uma plataforma gamificada que transforma conteúdos complexos de ciência e tecnologia em experiências interativas e divertidas.
-                </p>
-                <div class="avatar-display-wrapper">
-                    <!-- Imagem idêntica à do seu protótipo: o garoto jogando com fone no setup iluminado -->
-                    <img src="https://unsplash.com" alt="Garoto com fone de ouvido gamer concentrado olhando para uma tela de computador iluminada por luz neon roxa e azul" class="about-setup-img">
+            <!-- COLUNA 1: SOBRE O ARCADEVERSE -->
+            <div class="dash-col">
+                <h3 class="dash-title"><span class="purple-badge-dot">👾</span> SOBRE O ARCADEVERSE</h3>
+                <p class="dash-desc">Uma plataforma gamificada que transforma conteúdos complexos de ciência e tecnologia em experiências interativas e divertidas.</p>
+                <div class="gamer-vector-box">
+                    <div class="gamer-avatar">
+                        <div class="hair-neon"></div>
+                        <div class="face-skin"></div>
+                        <div class="headset-neon"></div>
+                    </div>
+                    <div class="matrix-lines"></div>
                 </div>
             </div>
 
-            <!-- COLUNA 2: RECURSOS -->
-            <div class="info-column features-box" id="ciencia">
-                <h4 class="column-title">RECURSOS INCRÍVEIS</h4>
-                <ul class="meta-list">
-                    <li>
-                        <span class="meta-icon icon-bg-green">🎮</span>
-                        <div>
-                            <h5>Jogos Educacionais</h5>
-                            <p>Aprenda enquanto joga</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="meta-icon icon-bg-blue">🔬</span>
-                        <div>
-                            <h5>Conteúdo Científico</h5>
-                            <p>Baseado em pesquisas reais</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="meta-icon icon-bg-cyan">💻</span>
-                        <div>
-                            <h5>Tecnologia Moderna</h5>
-                            <p>Desenvolvido com as melhores tecnologias</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="meta-icon icon-bg-darkblue">📱</span>
-                        <div>
-                            <h5>Design Responsivo</h5>
-                            <p>Funciona perfeitamente em qualquer dispositivo</p>
-                        </div>
-                    </li>
-                </ul>
+            <!-- COLUNA 2: RECURSOS INCRÍVEIS -->
+            <div class="dash-col" id="ciencia">
+                <h3 class="dash-title">RECURSOS INCRÍVEIS</h3>
+                <div class="item-row">
+                    <div class="row-badge r-green">🎮</div>
+                    <div class="row-info"><h4>Jogos Educacionais</h4><p>Aprenda enquanto joga</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="row-badge r-blue">🔬</div>
+                    <div class="row-info"><h4>Conteúdo Científico</h4><p>Baseado em pesquisas reais</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="row-badge r-cyan">💻</div>
+                    <div class="row-info"><h4>Tecnologia Moderna</h4><p>Desenvolvido com as melhores tecnologias</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="row-badge r-indigo">📱</div>
+                    <div class="row-info"><h4>Design Responsivo</h4><p>Funciona perfeitamente em qualquer dispositivo</p></div>
+                </div>
             </div>
 
-            <!-- COLUNA 3: TECNOLOGIAS -->
-            <div class="info-column tech-box" id="desenvolvimento">
-                <h4 class="column-title">TECNOLOGIAS UTILIZADAS</h4>
-                <ul class="meta-list">
-                    <li>
-                        <span class="tech-badge badge-orange">5</span>
-                        <div>
-                            <h5>HTML5</h5>
-                            <p>Estrutura semântica</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="tech-badge badge-blue">3</span>
-                        <div>
-                            <h5>CSS3</h5>
-                            <p>Estilização moderna</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="tech-badge badge-yellow">JS</span>
-                        <div>
-                            <h5>JavaScript ES6+</h5>
-                            <p>Interatividade avançada</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="tech-badge badge-cyan">👁</span>
-                        <div>
-                            <h5>Canvas API</h5>
-                            <p>Gráficos e animações</p>
-                        </div>
+            <!-- COLUNA 3: TECNOLOGIAS UTILIZADAS -->
+            <div class="dash-col" id="desenvolvimento">
+                <h3 class="dash-title">TECNOLOGIAS UTILIZADAS</h3>
+                <div class="item-row">
+                    <div class="tech-box t-orange">5</div>
+                    <div class="row-info"><h4>HTML5</h4><p>Estrutura semântica</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="tech-box t-blue">3</div>
+                    <div class="row-info"><h4>CSS3</h4><p>Estilização moderna</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="tech-box t-yellow">JS</div>
+                    <div class="row-info"><h4>JavaScript ES6+</h4><p>Interatividade avançada</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="tech-box t-cyan">👁</div>
+                    <div class="row-info"><h4>Canvas API</h4><p>Gráficos e animações</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="tech-box t-green">💾</div>
+                    <div class="row-info"><h4>LocalStorage</h4><p>Persistência de dados</p></div>
+                </div>
+            </div>
+
+            <!-- COLUNA 4: STATS DA PLATAFORMA -->
+            <div class="dash-col" id="avaliacao">
+                <h3 class="dash-title">STATS DA PLATAFORMA</h3>
+                <div class="item-row">
+                    <div class="stat-icon">🎮</div>
+                    <div class="row-info"><h4 class="st-num s-green">3</h4><p>Jogos Disponíveis</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="stat-icon">💬</div>
+                    <div class="row-info"><h4 class="st-num s-pink">100%</h4><p>Educacional</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="stat-icon">♾️</div>
+                    <div class="row-info"><h4 class="st-num s-cyan">∞</h4><p>Diversão Garantida</p></div>
+                </div>
+                <div class="item-row">
+                    <div class="stat-icon">⏰</div>
+                    <div class="row-info"><h4 class="st-num s-green">24/7</h4><p>Sempre Disponível</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BARRA DA MISSÃO INFERIOR -->
+        <footer class="mission-footer-banner">
+            <div class="mission-content">
+                <span class="gold-cup">🏆</span>
+                <div class="mission-text-block">
+                    <p class="txt-p"><strong>MISSÃO:</strong> Tornar o aprendizado de ciência e tecnologia uma aventura épica!</p>
+                    <p class="txt-sub">Explore. Aprenda. Jogue. Repita.</p>
+                </div>
+            </div>
+            <button class="btn-journey">COMEÇAR JORNADA 🚀</button>
+        </footer>
+    </main>
+
+    <!-- MODAL DO MINI-GAME MODULAR -->
+    <div id="game-modal" class="modal-overlay">
+        <div class="modal-viewport">
+            <button class="btn-close-modal" id="close-modal-x">&times;</button>
+            <h2 id="modal-game-title">Carregando Arena...</h2>
+            <div class="score-display">SCORE: <span id="modal-score-value">0</span></div>

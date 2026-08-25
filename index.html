@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Arcade Hub - V2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎮 RETRO<span>ARCADE</span></div>
+        <button id="theme-toggle" class="theme-btn">⚡ MUDAR ENERGIA</button>
+    </header>
+
+    <main class="container">
+        <!-- Card Jogo 1: Snake -->
+        <article class="post-card game-snake" onclick="openGame('snake')">
+            <div class="card-badge">CLÁSSICO</div>
+            <img src="https://unsplash.com" alt="Snake Game" class="card-img">
+            <div class="card-content">
+                <span class="card-tag">Arcade</span>
+                <h2>Snake Game</h2>
+                <p>O lendário jogo da cobrinha! Coma os pixels vermelhos e não colida com as paredes.</p>
+                <button class="play-btn">JOGAR AGORA</button>
+            </div>
+        </article>
+
+        <!-- Card Jogo 2: Cyber Clicker -->
+        <article class="post-card game-space" onclick="openGame('clicker')">
+            <div class="card-badge">ACTION</div>
+            <img src="https://unsplash.com" alt="Space Game" class="card-img">
+            <div class="card-content">
+                <span class="card-tag">Sci-Fi</span>
+                <h2>Cyber Clicker</h2>
+                <p>Destrua o alvo o máximo de vezes que conseguir antes que o tempo de 10 segundos acabe!</p>
+                <button class="play-btn">JOGAR AGORA</button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Modal do Jogo Ativo (Com melhorias do teste de usuário) -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGame()">&times;</span>
+            <h2 id="game-title">Carregando...</h2>
+            
+            <!-- Painel de Status (Tempo e Pontuação) -->
+            <div class="game-status-bar">
+                <div>PONTOS: <span id="game-score">0</span></div>
+                <div id="timer-display" style="display:none;">TEMPO: <span id="game-timer">10</span>s</div>
+            </div>
+
+            <div id="game-arena">
+                <!-- Canvas para o Snake -->
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+                
+                <!-- Arena para o Clicker -->
+                <div id="clicker-arena" style="display:none;">
+                    <button id="target-btn">CLIQUE!</button>
+                </div>
+            </div>
+
+            <!-- RESOLUÇÃO DO APRENDIZADO 2: Instruções explícitas pós-teste -->
+            <div id="instructions-panel" class="game-controls">
+                <!-- Injetado dinamicamente via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,203 +1,667 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcadeVerse | Jogos que Ensinam, Diversão que Transforma!</title>
-    <!-- Importação segura e de alta fidelidade das fontes gamer do Google -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Duas descobertas importantes que surgiram durante o desenvolvimento do projeto.">
+  <meta name="theme-color" content="#09051a">
+  <title>Duas Descobertas | Diário do Projeto</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="cyberpunk-theme">
 
-    <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="brand">
-                <div class="brand-logo">🎮</div>
-                <div class="brand-text">
-                    <span class="logo-title">ARCADEVERSE</span>
-                    <span class="logo-sub">JOGOS QUE ENSINAM, DIVERSÃO QUE TRANSFORMA!</span>
-                </div>
-            </div>
-            <nav class="nav-links">
-                <a href="#inicio" class="active">INÍCIO</a>
-                <a href="#jogos">JOGOS</a>
-                <a href="#ciencia">CIÊNCIA</a>
-                <a href="#desenvolvimento">DESENVOLVIMENTO</a>
-                <a href="#avaliacao">AVALIAÇÃO</a>
-                <a href="#sobre">SOBRE</a>
-                <button class="theme-toggle-btn" aria-label="Alternar Modo Escuro">🌙</button>
-            </nav>
-        </div>
-    </header>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
 
-    <!-- GRID PRINCIPAL DA ARENA -->
-    <main class="arena-wrapper" id="inicio">
-        <div class="hero-layout">
-            
-            <!-- APRESENTAÇÃO TEXTUAL (ESQUERDA) -->
-            <section class="intro-block">
-                <h1 class="hero-title">APRENDER<br>NUNCA FOI<br>TÃO DIVERTIDO</h1>
-                <p class="hero-desc">ArcadeVerse é uma plataforma educacional onde a ciência e a tecnologia se encontram com jogos incríveis e interativos.</p>
-                <a href="#jogos" class="btn-explore">EXPLORAR JOGOS ❯</a>
-            </section>
+  <header class="topbar" id="inicio">
+    <a class="brand" href="#inicio" aria-label="Voltar ao início">
+      <span class="brand-mark" aria-hidden="true">✦</span>
 
-            <!-- GRADE DE JOGOS COM REQUISITOS DE HOVER E SOMBRA (DIREITA) -->
-            <section class="cards-grid" id="jogos">
-                
-                <!-- CARD 1: NEON SNAKE -->
-                <article class="arcade-card neon-green-border" data-game="snake">
-                    <div class="card-top">
-                        <div class="card-icon green-glow">🐍</div>
-                        <div class="card-headings">
-                            <h2>NEON SNAKE</h2>
-                            <p>Clássico da Cobrinha com um visual neon!</p>
-                        </div>
-                    </div>
-                    <div class="display-screen snake-screen-bg">
-                        <div class="virtual-snake-path"></div>
-                        <div class="virtual-food"></div>
-                    </div>
-                    <button class="btn-play-card green-btn">JOGAR AGORA 🎮</button>
-                </article>
+      <span>
+        <strong>PROJETO<span>LAB</span></strong>
+        <small>APRENDER • REFLETIR • EVOLUIR</small>
+      </span>
+    </a>
 
-                <!-- CARD 2: QUANTUM CLICKER -->
-                <article class="arcade-card neon-blue-border" data-game="clicker">
-                    <div class="card-top">
-                        <div class="card-icon blue-glow">⚡</div>
-                        <div class="card-headings">
-                            <h2>QUANTUM CLICKER</h2>
-                            <p>Clique, evolua e descubra o poder dos quarks!</p>
-                        </div>
-                    </div>
-                    <div class="display-screen clicker-screen-bg">
-                        <div class="quantum-waves"></div>
-                    </div>
-                    <button class="btn-play-card blue-btn">JOGAR AGORA 🎮</button>
-                </article>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#descobertas">Descobertas</a>
+      <a href="#processo">Processo</a>
+      <a href="#reflexao">Reflexão</a>
+    </nav>
 
-                <!-- CARD 3: TECH QUIZ ARENA -->
-                <article class="arcade-card neon-purple-border" data-game="quiz">
-                    <div class="card-top">
-                        <div class="card-icon purple-glow">🏆</div>
-                        <div class="card-headings">
-                            <h2>TECH QUIZ ARENA</h2>
-                            <p>Teste seus conhecimentos em tecnologia e ciência!</p>
-                        </div>
-                    </div>
-                    <div class="display-screen quiz-screen-bg">
-                        <div class="trophy-vector">🏆</div>
-                    </div>
-                    <button class="btn-play-card purple-btn">COMEÇAR QUIZ ❓</button>
-                </article>
+    <button
+      class="icon-button"
+      id="themeToggle"
+      type="button"
+      aria-label="Alternar tema"
+      title="Alternar tema">
+      ☾
+    </button>
 
-            </section>
+    <button
+      class="menu-button"
+      id="menuToggle"
+      type="button"
+      aria-label="Abrir menu"
+      aria-expanded="false">
+      ☰
+    </button>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero section-shell" aria-labelledby="hero-title">
+
+      <div class="hero-copy reveal">
+
+        <div class="eyebrow">
+          <span></span>
+          DIÁRIO DE DESCOBERTAS
         </div>
 
-        <!-- SEÇÃO INFERIOR EM 4 COLUNAS EXATAS COMO O SEU PROTÓTIPO -->
-        <div class="dashboard-grid" id="sobre">
-            
-            <!-- COLUNA 1: SOBRE O ARCADEVERSE -->
-            <div class="dash-col">
-                <h3 class="dash-title"><span class="purple-badge-dot">👾</span> SOBRE O ARCADEVERSE</h3>
-                <p class="dash-desc">Uma plataforma gamificada que transforma conteúdos complexos de ciência e tecnologia em experiências interativas e divertidas.</p>
-                <div class="gamer-vector-box">
-                    <div class="gamer-avatar">
-                        <div class="hair-neon"></div>
-                        <div class="face-skin"></div>
-                        <div class="headset-neon"></div>
-                    </div>
-                    <div class="matrix-lines"></div>
-                </div>
-            </div>
+        <h1 id="hero-title">
+          DUAS <em>DESCOBERTAS</em><br>
+          QUE MUDARAM O PROJETO
+        </h1>
 
-            <!-- COLUNA 2: RECURSOS INCRÍVEIS -->
-            <div class="dash-col" id="ciencia">
-                <h3 class="dash-title">RECURSOS INCRÍVEIS</h3>
-                <div class="item-row">
-                    <div class="row-badge r-green">🎮</div>
-                    <div class="row-info"><h4>Jogos Educacionais</h4><p>Aprenda enquanto joga</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="row-badge r-blue">🔬</div>
-                    <div class="row-info"><h4>Conteúdo Científico</h4><p>Baseado em pesquisas reais</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="row-badge r-cyan">💻</div>
-                    <div class="row-info"><h4>Tecnologia Moderna</h4><p>Desenvolvido com as melhores tecnologias</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="row-badge r-indigo">📱</div>
-                    <div class="row-info"><h4>Design Responsivo</h4><p>Funciona perfeitamente em qualquer dispositivo</p></div>
-                </div>
-            </div>
+        <p class="hero-text">
+          Durante o desenvolvimento, novas ideias surgiram,
+          nossa compreensão do problema mudou e a solução ganhou
+          uma direção mais clara.
+        </p>
 
-            <!-- COLUNA 3: TECNOLOGIAS UTILIZADAS -->
-            <div class="dash-col" id="desenvolvimento">
-                <h3 class="dash-title">TECNOLOGIAS UTILIZADAS</h3>
-                <div class="item-row">
-                    <div class="tech-box t-orange">5</div>
-                    <div class="row-info"><h4>HTML5</h4><p>Estrutura semântica</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="tech-box t-blue">3</div>
-                    <div class="row-info"><h4>CSS3</h4><p>Estilização moderna</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="tech-box t-yellow">JS</div>
-                    <div class="row-info"><h4>JavaScript ES6+</h4><p>Interatividade avançada</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="tech-box t-cyan">👁</div>
-                    <div class="row-info"><h4>Canvas API</h4><p>Gráficos e animações</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="tech-box t-green">💾</div>
-                    <div class="row-info"><h4>LocalStorage</h4><p>Persistência de dados</p></div>
-                </div>
-            </div>
+        <div class="hero-actions">
 
-            <!-- COLUNA 4: STATS DA PLATAFORMA -->
-            <div class="dash-col" id="avaliacao">
-                <h3 class="dash-title">STATS DA PLATAFORMA</h3>
-                <div class="item-row">
-                    <div class="stat-icon">🎮</div>
-                    <div class="row-info"><h4 class="st-num s-green">3</h4><p>Jogos Disponíveis</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="stat-icon">💬</div>
-                    <div class="row-info"><h4 class="st-num s-pink">100%</h4><p>Educacional</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="stat-icon">♾️</div>
-                    <div class="row-info"><h4 class="st-num s-cyan">∞</h4><p>Diversão Garantida</p></div>
-                </div>
-                <div class="item-row">
-                    <div class="stat-icon">⏰</div>
-                    <div class="row-info"><h4 class="st-num s-green">24/7</h4><p>Sempre Disponível</p></div>
-                </div>
-            </div>
+          <a class="button button-primary" href="#descobertas">
+            Explorar descobertas
+            <span>→</span>
+          </a>
+
+          <a class="button button-ghost" href="#processo">
+            Ver processo
+          </a>
+
         </div>
 
-        <!-- BARRA DA MISSÃO INFERIOR -->
-        <footer class="mission-footer-banner">
-            <div class="mission-content">
-                <span class="gold-cup">🏆</span>
-                <div class="mission-text-block">
-                    <p class="txt-p"><strong>MISSÃO:</strong> Tornar o aprendizado de ciência e tecnologia uma aventura épica!</p>
-                    <p class="txt-sub">Explore. Aprenda. Jogue. Repita.</p>
-                </div>
-            </div>
-            <button class="btn-journey">COMEÇAR JORNADA 🚀</button>
-        </footer>
-    </main>
+        <div class="hero-stats" aria-label="Resumo do projeto">
 
-    <!-- MODAL DO MINI-GAME MODULAR -->
-    <div id="game-modal" class="modal-overlay">
-        <div class="modal-viewport">
-            <button class="btn-close-modal" id="close-modal-x">&times;</button>
-            <h2 id="modal-game-title">Carregando Arena...</h2>
-            <div class="score-display">SCORE: <span id="modal-score-value">0</span></div>
+          <div>
+            <strong>02</strong>
+            <span>descobertas</span>
+          </div>
+
+          <div>
+            <strong>03</strong>
+            <span>etapas-chave</span>
+          </div>
+
+          <div>
+            <strong>∞</strong>
+            <span>possibilidades</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="hero-art reveal delay-1"
+        aria-label="Ilustração sobre novas ideias e aprendizado">
+
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+
+        <div class="brain">🧠</div>
+
+        <div class="idea idea-a">💡</div>
+        <div class="idea idea-b">⚙</div>
+        <div class="idea idea-c">⌁</div>
+
+        <div class="connection c1"></div>
+        <div class="connection c2"></div>
+        <div class="connection c3"></div>
+
+        <div class="art-caption">
+          <span></span>
+          NOVAS PERCEPÇÕES EM MOVIMENTO
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DESCOBERTAS -->
+    <section
+      class="discoveries section-shell"
+      id="descobertas"
+      aria-labelledby="discoveries-title">
+
+      <div class="section-heading reveal">
+
+        <div>
+
+          <div class="eyebrow">
+            <span></span>
+            O QUE DESCOBRIMOS
+          </div>
+
+          <h2 id="discoveries-title">
+            Duas ideias que fizeram<br>
+            <em>a diferença</em>
+          </h2>
+
+        </div>
+
+        <p>
+          As descobertas representam momentos em que o grupo
+          percebeu algo novo e transformou essa percepção
+          em uma melhoria concreta.
+        </p>
+
+      </div>
+
+
+      <div class="cards">
+
+        <!-- CARD 01 -->
+        <article
+          class="discovery-card cyan reveal"
+          data-discovery="1">
+
+          <div class="card-top">
+
+            <span class="number">
+              01
+            </span>
+
+            <span class="card-icon">
+              ⌕
+            </span>
+
+          </div>
+
+          <div class="card-illustration">
+
+            <span>◉</span>
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+          </div>
+
+          <div class="card-content">
+
+            <p class="card-kicker">
+              NOVO APRENDIZADO
+            </p>
+
+            <h3>
+              Entendemos melhor o problema
+            </h3>
+
+            <p>
+              Ao pesquisar mais profundamente,
+              percebemos que a situação era mais
+              complexa do que imaginávamos no início.
+            </p>
+
+            <button
+              class="text-button open-modal"
+              type="button"
+              data-id="1">
+
+              Ver descoberta
+              <span>↗</span>
+
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- CARD 02 -->
+        <article
+          class="discovery-card violet reveal delay-1"
+          data-discovery="2">
+
+          <div class="card-top">
+
+            <span class="number">
+              02
+            </span>
+
+            <span class="card-icon">
+              ↻
+            </span>
+
+          </div>
+
+          <div class="card-illustration">
+
+            <span>✦</span>
+
+            <i></i>
+            <i></i>
+            <i></i>
+
+          </div>
+
+          <div class="card-content">
+
+            <p class="card-kicker">
+              MUDANÇA DE PERSPECTIVA
+            </p>
+
+            <h3>
+              Nossa solução evoluiu
+            </h3>
+
+            <p>
+              Durante os testes e conversas da equipe,
+              percebemos que a ideia inicial poderia
+              ser melhorada.
+            </p>
+
+            <button
+              class="text-button open-modal"
+              type="button"
+              data-id="2">
+
+              Ver descoberta
+              <span>↗</span>
+
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- IMPACTO -->
+    <section class="impact section-shell">
+
+      <div class="impact-box reveal">
+
+        <div class="impact-icon">
+          ✦
+        </div>
+
+        <div>
+
+          <div class="eyebrow">
+            <span></span>
+            IMPACTO NO PROJETO
+          </div>
+
+          <h2>
+            Descobrir também é
+            <em>melhorar</em>.
+          </h2>
+
+          <p>
+            Quando uma nova percepção aparece,
+            ela pode mudar uma decisão, aperfeiçoar
+            uma solução e tornar o resultado mais consciente.
+          </p>
+
+        </div>
+
+        <div class="impact-points">
+
+          <span>Pesquisa</span>
+          <span>Reflexão</span>
+          <span>Colaboração</span>
+          <span>Evolução</span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROCESSO -->
+    <section
+      class="process section-shell"
+      id="processo"
+      aria-labelledby="process-title">
+
+      <div class="section-heading reveal">
+
+        <div>
+
+          <div class="eyebrow">
+            <span></span>
+            CAMINHO PERCORRIDO
+          </div>
+
+          <h2 id="process-title">
+            Como as descobertas
+            <em>apareceram</em>
+          </h2>
+
+        </div>
+
+        <p>
+          Novas ideias normalmente surgem quando
+          pesquisa, teste e conversa se encontram.
+        </p>
+
+      </div>
+
+
+      <div class="timeline">
+
+        <button
+          class="timeline-item active reveal"
+          type="button"
+          data-step="0">
+
+          <span class="timeline-dot">
+            01
+          </span>
+
+          <span>
+            <b>Investigar</b>
+            <small>Pesquisar e compreender</small>
+          </span>
+
+        </button>
+
+
+        <button
+          class="timeline-item reveal delay-1"
+          type="button"
+          data-step="1">
+
+          <span class="timeline-dot">
+            02
+          </span>
+
+          <span>
+            <b>Questionar</b>
+            <small>Perceber novas possibilidades</small>
+          </span>
+
+        </button>
+
+
+        <button
+          class="timeline-item reveal delay-2"
+          type="button"
+          data-step="2">
+
+          <span class="timeline-dot">
+            03
+          </span>
+
+          <span>
+            <b>Transformar</b>
+            <small>Aplicar e melhorar a solução</small>
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="process-detail"
+        id="processDetail"
+        aria-live="polite">
+
+        <span class="detail-label">
+          ETAPA 01
+        </span>
+
+        <h3>
+          Investigar antes de concluir
+        </h3>
+
+        <p>
+          O grupo reuniu informações, comparou ideias
+          e percebeu que compreender bem o problema
+          era essencial para criar uma solução mais coerente.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- REFLEXÃO -->
+    <section
+      class="reflection section-shell"
+      id="reflexao"
+      aria-labelledby="reflection-title">
+
+      <div class="reflection-panel reveal">
+
+        <div class="reflection-copy">
+
+          <div class="eyebrow">
+            <span></span>
+            REGISTRO DO GRUPO
+          </div>
+
+          <h2 id="reflection-title">
+            E quais foram
+            <em>as nossas</em>
+            descobertas?
+          </h2>
+
+          <p>
+            Escreva abaixo as duas descobertas reais
+            do grupo. O texto fica salvo neste navegador
+            para vocês poderem revisar depois.
+          </p>
+
+          <div class="tip">
+
+            <strong>💡 Dica</strong>
+
+            <span>
+              Pense nos momentos em que uma nova ideia
+              ou percepção surgiu e mudou o rumo do projeto.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <form
+          class="reflection-form"
+          id="reflectionForm">
+
+          <label for="discoveryOne">
+            Descoberta 01
+          </label>
+
+          <textarea
+            id="discoveryOne"
+            maxlength="500"
+            placeholder="Ex.: Descobrimos que..."
+            required></textarea>
+
+          <div class="field-meta">
+
+            <span>
+              Conte o que vocês aprenderam.
+            </span>
+
+            <strong id="countOne">
+              0/500
+            </strong>
+
+          </div>
+
+
+          <label for="discoveryTwo">
+            Descoberta 02
+          </label>
+
+          <textarea
+            id="discoveryTwo"
+            maxlength="500"
+            placeholder="Ex.: Percebemos que nossa solução poderia..."
+            required></textarea>
+
+          <div class="field-meta">
+
+            <span>
+              Explique o que mudou.
+            </span>
+
+            <strong id="countTwo">
+              0/500
+            </strong>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="button button-primary"
+              type="submit">
+
+              Salvar reflexões
+              <span>✓</span>
+
+            </button>
+
+            <button
+              class="button button-ghost"
+              id="clearReflection"
+              type="button">
+
+              Limpar
+
+            </button>
+
+          </div>
+
+          <p
+            class="save-status"
+            id="saveStatus"
+            role="status"
+            aria-live="polite"></p>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+
+    <div class="section-shell footer-inner">
+
+      <div>
+
+        <strong>
+          PROJETO<span>LAB</span>
+        </strong>
+
+        <small>
+          Pesquisar. Refletir. Mudar. Evoluir.
+        </small>
+
+      </div>
+
+      <p>
+        Desenvolvido para registrar as descobertas do projeto.
+      </p>
+
+      <a
+        href="#inicio"
+        aria-label="Voltar ao início">
+
+        ↑
+
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <!-- MODAL -->
+  <div
+    class="modal"
+    id="modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle">
+
+    <div
+      class="modal-backdrop"
+      data-close-modal></div>
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        id="modalClose"
+        type="button"
+        aria-label="Fechar">
+
+        ×
+
+      </button>
+
+      <span
+        class="modal-number"
+        id="modalNumber">
+
+        01
+
+      </span>
+
+      <p
+        class="card-kicker"
+        id="modalKicker">
+
+        NOVO APRENDIZADO
+
+      </p>
+
+      <h2 id="modalTitle">
+        Entendemos melhor o problema
+      </h2>
+
+      <p id="modalText"></p>
+
+      <div class="modal-result">
+
+        <span>
+          IMPACTO
+        </span>
+
+        <strong id="modalImpact"></strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

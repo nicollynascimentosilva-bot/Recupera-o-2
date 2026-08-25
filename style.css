@@ -1,166 +1,129 @@
 /* ==========================================================================
-   1. PALETA DE CORES IDENTIFICADA NA IMAGEM (MODO CYBERPUNK PROFUNDO)
+   1. PALETA DE CORES ARCADEVERSE (IDÊNTICA À IMAGEM DO PROTÓTIPO)
    ========================================================================== */
 :root {
-    --bg-universe: #040212;
-    --bg-header-blue: #0b0726;
-    --bg-card-dark: #0a0e24;
-    --text-pure: #ffffff;
-    --text-muted-cyan: #7983a3;
+    --color-universe-bg: #03020e;
+    --color-navbar-bg: #07051d;
+    --color-card-bg: #07091b;
+    --color-screen-bg: #010207;
     
-    /* Cores dos canais de neon */
-    --neon-emerald: #00ff87;
+    --neon-green: #00ff87;
     --neon-blue: #00d2ff;
-    --neon-purple: #b5179e;
-    --neon-purple-glow: #7209b7;
-    
-    --font-display: 'Orbitron', sans-serif;
-    --font-content: 'Rajdhani', sans-serif;
+    --neon-purple: #bd00ff;
+    --text-primary: #ffffff;
+    --text-secondary: #707b9e;
 }
 
-/* ESTILOS DE BASE */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-family: var(--font-content); background-color: var(--bg-universe); color: var(--text-pure); }
-body { min-height: 100vh; background: radial-gradient(circle at top right, #0d093a 0%, var(--bg-universe) 70%); overflow-x: hidden; padding-bottom: 2rem; }
+html { scroll-behavior: smooth; font-family: 'Rajdhani', sans-serif; background: var(--color-universe-bg); color: var(--text-primary); }
+body { min-height: 100vh; background: radial-gradient(circle at top right, #0c0836 0%, var(--color-universe-bg) 65%); padding-bottom: 3rem; overflow-x: hidden; }
 
-/* Link de Acessibilidade Oculto */
-.skip-link {
-    position: absolute; top: -100px; left: 0;
-    background: var(--neon-purple); color: white;
-    padding: 1rem; z-index: 1000; transition: top 0.2s;
-}
-.skip-link:focus { top: 0; }
+/* BARRA DE NAVEGAÇÃO SUPERIOR */
+.navbar { background: var(--color-navbar-bg); border-bottom: 1px solid #13103d; position: sticky; top: 0; z-index: 1000; }
+.nav-container { max-width: 1300px; margin: 0 auto; padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.brand { display: flex; align-items: center; gap: 0.6rem; }
+.brand-logo { font-size: 1.5rem; }
+.logo-title { display: block; font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; }
+.logo-sub { display: block; font-family: 'Orbitron', sans-serif; font-size: 0.6rem; color: var(--neon-blue); letter-spacing: 0.5px; margin-top: -2px; }
 
-/* ==========================================================================
-   2. BARRA DE NAVEGAÇÃO SUPERIOR
-   ========================================================================== */
-.app-header {
-    background-color: var(--bg-header-blue);
-    border-bottom: 1px solid #161245;
-    position: sticky; top: 0; z-index: 100;
-}
-.header-container {
-    max-width: 1300px; margin: 0 auto; padding: 0.8rem 2rem;
-    display: flex; justify-content: space-between; align-items: center;
-}
-.app-logo { display: flex; align-items: center; gap: 0.8rem; }
-.logo-icon { font-size: 1.8rem; }
-.logo-text h1 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: var(--text-pure); }
-.logo-text p { font-size: 0.65rem; font-family: var(--font-display); letter-spacing: 1px; color: var(--neon-blue); margin-top: -2px; }
+.nav-links { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links a { text-decoration: none; color: var(--text-secondary); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 700; transition: all 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+.theme-toggle-btn { background: #110d38; border: none; color: var(--text-primary); padding: 0.3rem 0.5rem; border-radius: 4px; cursor: pointer; display: flex; align-items: center; }
 
-.nav-menu { display: flex; align-items: center; gap: 2.5rem; }
-.nav-menu ul { display: flex; list-style: none; gap: 1.5rem; }
-.nav-menu ul li a {
-    text-decoration: none; color: var(--text-muted-cyan); font-family: var(--font-display);
-    font-size: 0.75rem; font-weight: 700; transition: color 0.3s;
-}
-.nav-menu ul li a:hover, .nav-menu ul li a.active { color: var(--text-pure); text-shadow: 0 0 8px rgba(255,255,255,0.6); }
-.theme-toggle-zone { cursor: pointer; font-size: 1.1rem; padding: 0.2rem 0.5rem; background: #130f3a; border-radius: 6px; }
+/* COMPOSIÇÃO DO HERO LAYOUT (ESQUERDA / DIREITA) */
+.arena-wrapper { max-width: 1300px; margin: 3rem auto 0 auto; padding: 0 2rem; display: flex; flex-direction: column; gap: 4rem; }
+.hero-layout { display: grid; grid-template-columns: 1fr 2.4fr; gap: 3rem; align-items: center; }
 
-/* LAYOUT GRID SUPERIOR */
-.main-container { max-width: 1300px; margin: 3rem auto 0 auto; padding: 0 2rem; display: flex; flex-direction: column; gap: 4rem; }
-.hero-grid { display: grid; grid-template-columns: 1fr 2.4fr; gap: 3rem; align-items: center; }
-
-/* SEÇÃO ESQUERDA: APRESENTAÇÃO */
-.hero-intro { display: flex; flex-direction: column; gap: 1.5rem; }
-.main-title { font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; line-height: 1.1; letter-spacing: 1px; color: var(--text-pure); }
-.main-description { color: var(--text-muted-cyan); font-size: 1.1rem; line-height: 1.5; max-width: 340px; }
-.cta-explore-btn {
-    background: transparent; padding: 0.8rem 1.8rem;
-    border: 2px solid var(--neon-purple); color: var(--text-pure); font-family: var(--font-display);
-    font-size: 0.8rem; font-weight: 700; border-radius: 6px; cursor: pointer;
-    box-shadow: 0 0 15px rgba(181, 23, 158, 0.3); transition: all 0.3s ease;
-}
-.cta-explore-btn:hover { background: var(--neon-purple); box-shadow: 0 0 25px var(--neon-purple); transform: translateY(-2px); }
-.cta-explore-btn .arrow { margin-left: 8px; font-size: 0.75rem; }
+.intro-block { display: flex; flex-direction: column; gap: 1.5rem; }
+.hero-title { font-family: 'Orbitron', sans-serif; font-size: 2.6rem; font-weight: 900; line-height: 1.1; letter-spacing: 1px; }
+.hero-desc { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.4; max-width: 320px; }
+.btn-explore { width: fit-content; text-decoration: none; border: 2px solid var(--neon-purple); color: var(--text-primary); padding: 0.8rem 1.6rem; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 700; border-radius: 6px; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(189, 0, 255, 0.2); transition: all 0.3s; }
+.btn-explore:hover { background: var(--neon-purple); box-shadow: 0 0 25px var(--neon-purple); transform: translateY(-2px); }
 
 /* ==========================================================================
-   3. SEÇÃO DIREITA: ARENA DE CARDS DE JOGO COM SELETORES :HOVER EXIGIDOS
+   2. REGRA DO DESAFIO: CARDS E SELETOR :HOVER COM ZOOM 1.02 SOLICITADO
    ========================================================================== */
-.games-arena { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.game-card {
-    background-color: var(--bg-card-dark); border-radius: 16px; padding: 1.5rem;
-    display: flex; flex-direction: column; gap: 1.2rem; position: relative;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-}
+.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.arcade-card { background: var(--color-card-bg); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease; }
 
-/* Configurações específicas de borda e sombra estática baseadas na imagem */
-.game-card.card-emerald { border: 1px solid rgba(0, 255, 135, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.game-card.card-blue { border: 1px solid rgba(0, 210, 255, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.game-card.card-purple { border: 1px solid rgba(114, 9, 183, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.arcade-card.neon-green-border { border: 1px solid rgba(0, 255, 135, 0.15); }
+.arcade-card.neon-blue-border { border: 1px solid rgba(0, 210, 255, 0.15); }
+.arcade-card.neon-purple-border { border: 1px solid rgba(189, 0, 255, 0.15); }
 
-/* REGRA DO DESAFIO: Efeitos de HOVER dinâmicos que acendem os cards */
-.game-card:hover {
-    transform: scale(1.02); /* Leve aumento solicitado de 1.02 */
-}
-.game-card.card-emerald:hover { border-color: var(--neon-emerald); box-shadow: 0 0 30px rgba(0, 255, 135, 0.4); }
-.game-card.card-blue:hover { border-color: var(--neon-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.4); }
-.game-card.card-purple:hover { border-color: var(--neon-purple); box-shadow: 0 0 30px rgba(181, 23, 158, 0.4); }
+/* SELETOR :HOVER EXIGIDO NA REGRA - AUMENTA O CARD E INTENSIFICA A SOMBRA NEON */
+.arcade-card:hover { transform: scale(1.02); cursor: pointer; }
+.arcade-card.neon-green-border:hover { border-color: var(--neon-green); box-shadow: 0 0 30px rgba(0, 255, 137, 0.3); }
+.arcade-card.neon-blue-border:hover { border-color: var(--neon-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.3); }
+.arcade-card.neon-purple-border:hover { border-color: var(--neon-purple); box-shadow: 0 0 30px rgba(189, 0, 255, 0.3); }
 
-/* Componentes internos dos cards */
-.card-header-game { display: flex; gap: 0.8rem; align-items: flex-start; }
-.card-header-game h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; }
-.card-subtitle { color: var(--text-muted-cyan); font-size: 0.85rem; line-height: 1.2; margin-top: 2px; }
+.card-top { display: flex; gap: 0.8rem; align-items: flex-start; }
+.card-icon { font-size: 1.3rem; line-height: 1; }
+.green-glow { color: var(--neon-green); filter: drop-shadow(0 0 5px var(--neon-green)); }
+.blue-glow { color: var(--neon-blue); filter: drop-shadow(0 0 5px var(--neon-blue)); }
+.purple-glow { color: var(--neon-purple); filter: drop-shadow(0 0 5px var(--neon-purple)); }
 
-.card-icon-snake { color: var(--neon-emerald); font-size: 1.4rem; }
-.card-icon-clicker { color: var(--neon-blue); font-size: 1.4rem; }
-.card-icon-quiz { color: var(--neon-purple); font-size: 1.4rem; }
+.card-headings h2 { font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; }
+.card-headings p { color: var(--text-secondary); font-size: 0.85rem; margin-top: 1px; }
 
-.card-preview-screen {
-    height: 150px; background-color: #030511; border-radius: 10px;
-    border: 1px solid #121733; display: flex; align-items: center; justify-content: center; position: relative;
-}
-/* Grafismo em CSS reproduzindo as telas internas */
-.snake-pixel-art {
-    width: 60px; height: 60px; border: 2px dashed rgba(0,255,135,0.4); border-radius: 4px; position: relative;
-}
-.snake-pixel-art::before { content: ''; position: absolute; top: 10px; left: 10px; width: 30px; height: 8px; background: var(--neon-emerald); border-radius: 2px; box-shadow: 0 0 8px var(--neon-emerald); }
-.clicker-core-particle { width: 12px; height: 12px; background: var(--neon-blue); border-radius: 50%; box-shadow: 0 0 20px 8px rgba(0,210,255,0.6); }
-.quiz-trophy-glow { font-size: 2.2rem; filter: drop-shadow(0 0 12px rgba(181, 23, 158, 0.8)); }
+/* LAYOUT DAS TELAS INTERNAS DOS CARDS */
+.display-screen { height: 150px; background: var(--color-screen-bg); border-radius: 10px; border: 1px solid #11152b; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.snake-screen-bg { background: linear-gradient(180deg, #020108 0%, #050614 100%); }
+.clicker-screen-bg { background: radial-gradient(circle, rgba(0,210,255,0.1) 0%, #010207 70%); }
+.quiz-screen-bg { background: linear-gradient(135deg, #03010c 0%, #0a051c 100%); }
 
-.play-card-btn {
-    width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-family: var(--font-display);
-    font-size: 0.8rem; font-weight: 700; color: var(--text-pure); cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s;
-}
-.card-emerald .play-card-btn { background-color: rgba(0, 255, 135, 0.1); border: 1px solid var(--neon-emerald); color: var(--neon-emerald); }
-.card-emerald .play-card-btn:hover { background-color: var(--neon-emerald); color: #000; }
+.virtual-snake-path { width: 40px; height: 10px; background: var(--neon-green); position: absolute; left: 30px; top: 70px; border-radius: 2px; box-shadow: 0 0 8px var(--neon-green); }
+.virtual-food { width: 8px; height: 8px; background: #ff0055; position: absolute; right: 40px; top: 50px; border-radius: 50%; }
+.quantum-waves { width: 14px; height: 14px; background: var(--neon-blue); border-radius: 50%; box-shadow: 0 0 20px 6px rgba(0,210,255,0.7); }
+.trophy-vector { font-size: 2.2rem; filter: drop-shadow(0 0 10px var(--neon-purple)); }
 
-.card-blue .play-card-btn { background-color: rgba(0, 210, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue); }
-.card-blue .play-card-btn:hover { background-color: var(--neon-blue); color: #000; }
-
-.card-purple .play-card-btn { background: rgba(181, 23, 158, 0.1); border: 1px solid var(--neon-purple); color: var(--neon-purple); }
-.card-purple .play-card-btn:hover { background-color: var(--neon-purple); color: #fff; box-shadow: 0 0 15px var(--neon-purple); }
+.btn-play-card { width: 100%; padding: 0.75rem; border: none; border-radius: 8px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.green-btn { background: rgba(0, 255, 135, 0.08); border: 1px solid var(--neon-green); color: var(--neon-green); }
+.green-btn:hover { background: var(--neon-green); color: #000; }
+.blue-btn { background: rgba(0, 210, 255, 0.08); border: 1px solid var(--neon-blue); color: var(--neon-blue); }
+.blue-btn:hover { background: var(--neon-blue); color: #000; }
+.purple-btn { background: rgba(189, 0, 255, 0.08); border: 1px solid var(--neon-purple); color: var(--neon-purple); }
+.purple-btn:hover { background: var(--neon-purple); color: #fff; box-shadow: 0 0 15px var(--neon-purple); }
 
 /* ==========================================================================
-   4. GRID INFERIOR DE INFORMAÇÕES (4 COLUNAS)
+   3. PAINEL DE CONTROLE INFERIOR (4 COLUNAS ORGANIZADAS E LIMPAS)
    ========================================================================== */
-.info-footer-grid { display: grid; grid-template-columns: 1fr 1.1fr 1.1fr 0.9fr; gap: 2rem; border-top: 1px solid #14113c; padding-top: 3rem; }
-.info-column { display: flex; flex-direction: column; gap: 1.2rem; }
-.column-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; color: var(--neon-blue); }
-.about-box .column-title { color: var(--text-pure); }
-.purple-dot { color: var(--neon-purple); margin-right: 4px; }
-.column-text { color: var(--text-muted-cyan); font-size: 0.95rem; line-height: 1.4; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1.1fr 1.1fr 0.9fr; gap: 2rem; border-top: 1px solid #14113b; padding-top: 3rem; }
+.dash-col { display: flex; flex-direction: column; gap: 1.2rem; }
+.dash-title { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; color: var(--neon-blue); }
+.purple-badge-dot { color: var(--neon-purple); margin-right: 4px; }
+.dash-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.4; }
 
-/* Ilustração interna em CSS do Setup/Gamer */
-.avatar-display-wrapper {
-    height: 110px; background: linear-gradient(to top, #090624, transparent); border-radius: 8px;
-    position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
-}
-.avatar-head { width: 45px; height: 45px; background: #ffd166; border-radius: 50%; position: relative; margin-bottom: 10px; z-index: 2; }
-.avatar-hair { position: absolute; top: -5px; width: 100%; height: 20px; background: #ef476f; border-radius: 20px 20px 0 0; }
-.avatar-headset { position: absolute; top: 10px; left: -4px; width: 53px; height: 15px; border: 4px solid var(--neon-purple); border-bottom: none; border-radius: 12px 12px 0 0; }
+/* Desenho estilizado em CSS puro do Avatar Gamer da imagem */
+.gamer-vector-box { height: 110px; background: linear-gradient(to top, #090627, transparent); border-radius: 8px; display: flex; align-items: flex-end; justify-content: center; position: relative; overflow: hidden; border: 1px solid #110e3d; }
+.gamer-avatar { width: 40px; height: 40px; background: #e0aaff; border-radius: 50%; position: relative; margin-bottom: 5px; z-index: 2; }
+.hair-neon { position: absolute; inset: -4px -4px auto -4px; height: 18px; background: #ff007f; border-radius: 20px 20px 0 0; }
+.headset-neon { position: absolute; top: 10px; left: -5px; width: 50px; height: 12px; border: 3px solid var(--neon-purple); border-bottom: none; border-radius: 10px 10px 0 0; }
 
-.meta-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-.meta-list li { display: flex; gap: 0.8rem; align-items: center; }
-.meta-icon {
-    width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1rem;
-}
-.icon-bg-green { background-color: rgba(0, 255, 135, 0.15); color: var(--neon-emerald); }
-.icon-bg-blue { background-color: rgba(0, 210, 255, 0.15); color: var(--neon-blue); }
-.icon-bg-cyan { background-color: rgba(0, 180, 216, 0.15); color: #00b4d8; }
-.icon-bg-darkblue { background-color: rgba(3, 4, 94, 0.3); color: #0077b6; }
-.meta-list h5 { font-size: 0.95rem; font-weight: 600; color: var(--text-pure); }
-.meta-list p { font-size: 0.8rem; color: var(--text-muted-cyan); }
+.item-row { display: flex; gap: 0.8rem; align-items: center; }
+.row-badge { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.r-green { background: rgba(0, 255, 135, 0.12); color: var(--neon-green); }
+.r-blue { background: rgba(0, 210, 255, 0.12); color: var(--neon-blue); }
+.r-cyan { background: rgba(0, 180, 216, 0.12); color: #00b4d8; }
+.r-indigo { background: rgba(114, 9, 183, 0.12); color: #7209b7; }
 
-/* Badges de Tecnologias */
+.row-info h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+.row-info p { font-size: 0.8rem; color: var(--text-secondary); }
+
+.tech-box { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 900; color: #000; }
+.t-orange { background: #f16529; color: #fff; }
+.t-blue { background: #2965f1; color: #fff; }
+.t-yellow { background: #f7df1e; }
+.t-cyan { background: #00b4d8; color: #fff; }
+.t-green { background: var(--neon-green); }
+
+.stat-icon { font-size: 1.2rem; }
+.st-num { font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 700; }
+.s-green { color: var(--neon-green); }
+.s-pink { color: #ff007f; }
+.s-cyan { color: var(--neon-blue); }
+
+/* FOOTER DA MISSÃO */
+.mission-footer-banner { background: #070520; border: 1px solid #16124c; border-radius: 12px; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+.mission-content { display: flex; align-items: center; gap: 1rem; }
+.gold-cup { font-size: 1.8rem; }
